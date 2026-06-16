@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This file is part of Whisper To Input, see <https://github.com/j3soon/whisper-to-input>.
+    Copyright (c) 2023-2024 Yan-Bin Diau, Johnson Sun
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Background"
+    android:id="@+id/keyboard_view"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:clipToPadding="false">
+
+    <!-- top bar -->
+    <ProgressBar
+        android:id="@+id/progress_bar_top"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        android:max="100"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- left section (record) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/left"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/center"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar_top"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            style="@style/SmallCornerImageButton"
+            android:id="@+id/btn_mic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/start_speech_to_text"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_mic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_robot" />
+
+        <ImageButton
+            style="@style/SmallCornerImageButton"
+            android:id="@+id/btn_robot"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/btn_robot_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_robot"
+            app:layout_constraintTop_toBottomOf="@id/btn_mic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/pb_waiting_icon_llm"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="@id/btn_robot"
+            app:layout_constraintBottom_toBottomOf="@id/btn_robot"
+            app:layout_constraintStart_toStartOf="@id/btn_robot"
+            app:layout_constraintEnd_toEndOf="@id/btn_robot" />
+
+        <ProgressBar
+            android:id="@+id/pb_waiting_icon"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="@id/btn_mic"
+            app:layout_constraintBottom_toBottomOf="@id/btn_mic"
+            app:layout_constraintStart_toStartOf="@id/btn_mic"
+            app:layout_constraintEnd_toEndOf="@id/btn_mic" />
+
+        <ImageView 
+            android:id="@+id/mic_ripple_0" 
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:alpha="0" 
+            android:src="@drawable/ic_mic_ripple" 
+            app:tint="@color/playful_blue" 
+            android:contentDescription="@null" 
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="@id/btn_mic"
+            app:layout_constraintBottom_toBottomOf="@id/btn_mic"
+            app:layout_constraintStart_toStartOf="@id/btn_mic"
+            app:layout_constraintEnd_toEndOf="@id/btn_mic" />
+
+        <!-- btn_cancel, btn_retry, btn_settings removed from here -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- middle section (transcription) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/center"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintHorizontal_weight="0.77"
+        app:layout_constraintStart_toEndOf="@+id/left"
+        app:layout_constraintEnd_toStartOf="@+id/right"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar_top"
+        app:layout_constraintBottom_toBottomOf="parent">
+        
+        <!-- Spell Checked Text Area (Scrollable) -->
+        <ScrollView
+            android:id="@+id/scroll_transcript"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_delete_all_transcript"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/status_indicators"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp">
+            
+            <TextView android:id="@+id/spell_checked_text" 
+                android:layout_width="match_parent" 
+                android:layout_height="wrap_content" 
+                android:minHeight="45dp"
+                android:gravity="top|start"
+                android:text="@string/empty_string" 
+                android:textSize="45sp" 
+                android:lineSpacingExtra="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:clipToPadding="false" />
+        </ScrollView>
+
+        <ImageButton
+            android:id="@+id/btn_delete_all_transcript"
+            style="@style/SmallCornerImageButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/button_delete_all_transcript"
+            android:contentDescription="@string/delete_all"
+            android:padding="14dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_delete_all_transcript"
+            app:tint="@color/playful_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Status Indicators (Mic, List, Robot, Trash) -->
+        <LinearLayout
+            android:id="@+id/status_indicators"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/flow_center_actions">
+
+            <!-- Mic Indicator Box -->
+            <LinearLayout
+                android:id="@+id/container_status_mic"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:background="@drawable/status_box_background"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:padding="2dp">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_mic"
+                    android:layout_marginStart="8dp"
+                    app:tint="@color/playful_blue" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#60FFFFFF"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp" />
+                <TextView
+                    android:id="@+id/tv_status_mic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/playful_white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="" />
+            </LinearLayout>
+
+            <!-- List Indicator Box -->
+            <LinearLayout
+                android:id="@+id/container_status_list"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:background="@drawable/status_box_background"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:padding="2dp">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_list"
+                    android:layout_marginStart="8dp"
+                    app:tint="@color/playful_blue" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#60FFFFFF"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp" />
+                <TextView
+                    android:id="@+id/tv_status_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/playful_white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="" />
+            </LinearLayout>
+
+            <!-- Robot Indicator Box -->
+            <LinearLayout
+                android:id="@+id/container_status_robot"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:background="@drawable/status_box_background"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:padding="2dp">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_robot"
+                    android:layout_marginStart="8dp"
+                    app:tint="@color/playful_blue" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#60FFFFFF"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp" />
+                <TextView
+                    android:id="@+id/tv_status_robot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/playful_white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="" />
+            </LinearLayout>
+
+            <!-- Trash Indicator Box -->
+            <LinearLayout
+                android:id="@+id/container_status_trash"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:background="@drawable/status_box_background"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="2dp">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_trash"
+                    android:layout_marginStart="8dp"
+                    app:tint="@color/playful_blue" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#60FFFFFF"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp" />
+                <TextView
+                    android:id="@+id/tv_status_trash"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/playful_white"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Check and Play stacked on the right of transcription -->
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow_center_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:flow_wrapMode="none"
+            android:orientation="vertical"
+            app:flow_verticalGap="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:constraint_referenced_ids="btn_check_spell,btn_play_spell" />
+
+        <!-- Transcription controls (now circular and stacked) -->
+        <ImageButton style="@style/SmallCornerImageButton" 
+            android:id="@+id/btn_check_spell" 
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:contentDescription="@string/start_text_to_speech" 
+            android:scaleType="fitCenter" 
+            android:src="@drawable/ic_check" 
+            android:visibility="invisible" />
+
+        <ImageButton style="@style/SmallCornerImageButton" 
+            android:id="@+id/btn_play_spell" 
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/start_text_to_speech" 
+            android:scaleType="fitCenter" 
+            android:src="@drawable/ic_play" 
+            android:visibility="invisible" />
+
+        <!-- Speech to Text Icon (moved or hidden for cleaner look) -->
+        <ImageView
+            android:id="@+id/iv_spell_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_speech_to_text"
+            android:visibility="gone"
+            android:contentDescription="@string/iv_spell_icon_description"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- far-right section (Sidebar) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/right"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintHorizontal_weight="0.10"
+        app:layout_constraintStart_toEndOf="@+id/center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_bar_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/dark_blue">
+
+        <!-- Vertically stacked: Emoji, Keyboard, Enter, Delete, Settings -->
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/sidebar_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:flow_wrapMode="none"
+            android:orientation="vertical"
+            app:flow_verticalGap="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:constraint_referenced_ids="btn_emoji,btn_keyboard,btn_enter,btn_delete,btn_settings" />
+
+        <ImageButton style="@style/SmallCornerImageButton" android:id="@+id/btn_emoji" android:layout_margin="0dp" android:layout_width="100dp" android:layout_height="65dp" android:scaleType="fitCenter" android:src="@drawable/ic_emoji" android:contentDescription="@string/btn_emoji_description" />
+        <ImageButton style="@style/SmallCornerImageButton" android:id="@+id/btn_keyboard" android:layout_margin="0dp" android:layout_width="100dp" android:layout_height="65dp" android:scaleType="fitCenter" android:src="@drawable/ic_keyboard" android:contentDescription="@string/btn_keyboard_description" />
+        <ImageButton style="@style/SmallCornerImageButton" android:id="@+id/btn_enter" android:layout_margin="0dp" android:layout_width="80dp" android:layout_height="55dp" android:scaleType="fitCenter" android:src="@drawable/ic_enter" android:contentDescription="@string/btn_enter_description" />
+        <com.example.whispertoinput.keyboard.BackspaceButton style="@style/SmallCornerImageButton" android:id="@+id/btn_delete" android:layout_margin="0dp" android:layout_width="80dp" android:layout_height="55dp" android:scaleType="fitCenter" android:src="@drawable/ic_backspace" android:contentDescription="@string/backspace_button_hint" />
+        <ImageButton style="@style/SmallCornerImageButton" android:id="@+id/btn_settings" android:layout_margin="0dp" android:layout_width="50dp" android:layout_height="50dp" android:scaleType="fitCenter" android:src="@drawable/ic_settings" android:contentDescription="@string/btn_previous_ime_hint" />
+
+        <!-- hidden utility buttons -->
+        <ImageButton android:id="@+id/btn_cancel" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+        <ImageButton android:id="@+id/btn_retry" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

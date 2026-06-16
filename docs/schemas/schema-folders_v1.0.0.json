@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  
+  "title": "chiara-speech2text_schema-folders",
+  
+  "version": "1.0.0_20260529",
+  
+  "description": "Schema for folders inside folders.json.",
+  
+  "type": "object",
+  
+  "required": [
+    "folder_name",
+    "is_processed",
+    "n_audios",
+    "audios_duration"
+  ],
+  
+  "properties": {
+    "folder_name": {
+      "type": "string",
+      "description": "Name of the folder"
+    },
+    "is_processed": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if the folder is fully reviewed by a reviewer"
+    },
+    "n_audios": {
+      "type": "number",
+      "format": "integer",
+      "default": 0,
+      "description": "Number of audios in the folder"
+    },
+    "audios_duration": {
+      "type": "number",
+      "format": "float",
+      "default": 0,
+      "description": "Total duration of the audios in the folder in seconds"
+    }
+  },
+  
+  "additionalProperties": false
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Playful Palette -->
+    <color name="playful_blue">#067BC2</color>
+    <color name="playful_light_blue">#84BCDA</color>
+    <color name="playful_yellow">#FAFA33</color>
+    <color name="playful_orange">#F37748</color>
+    <color name="playful_red">#D56062</color>
+    <color name="playful_white">#EEEEEE</color>
+    <color name="dark_blue">#12192A</color>
+</resources>

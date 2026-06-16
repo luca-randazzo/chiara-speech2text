@@ -1,0 +1,1234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:background="@drawable/emoji_popup_background">
+
+    <!-- Top Menu Bar -->
+    <LinearLayout
+        android:id="@+id/emoji_menu_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:background="@color/dark_blue"
+        android:minHeight="48dp">
+
+        <TextView
+            android:id="@+id/menu_recent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🕐"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_faces"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="😀"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_gestures"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="👋"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_animals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🐾"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_food"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🍕"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_travel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🚗"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_objects"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="💡"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/playful_blue"
+            android:layout_marginHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/menu_symbols"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="✨"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <!-- Menu Indicator Line -->
+    <View
+        android:id="@+id/menu_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/playful_blue" />
+
+    <!-- ScrollView for Emoji Sections -->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="240dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <!-- Section: Recent (initially empty, will be populated dynamically) -->
+        <GridLayout
+            android:id="@+id/emoji_grid_recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone" />
+
+        <!-- Section: Faces -->
+        <GridLayout
+            android:id="@+id/emoji_grid_faces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="visible">
+
+            <TextView style="@style/EmojiItem" android:text="😀" />
+            <TextView style="@style/EmojiItem" android:text="😃" />
+            <TextView style="@style/EmojiItem" android:text="😄" />
+            <TextView style="@style/EmojiItem" android:text="😁" />
+            <TextView style="@style/EmojiItem" android:text="😆" />
+            <TextView style="@style/EmojiItem" android:text="😅" />
+            <TextView style="@style/EmojiItem" android:text="🤣" />
+            <TextView style="@style/EmojiItem" android:text="😂" />
+            <TextView style="@style/EmojiItem" android:text="🙂" />
+            <TextView style="@style/EmojiItem" android:text="🙃" />
+            <TextView style="@style/EmojiItem" android:text="😉" />
+            <TextView style="@style/EmojiItem" android:text="😊" />
+            <TextView style="@style/EmojiItem" android:text="😇" />
+            <TextView style="@style/EmojiItem" android:text="🥰" />
+            <TextView style="@style/EmojiItem" android:text="😍" />
+            <TextView style="@style/EmojiItem" android:text="🤩" />
+            <TextView style="@style/EmojiItem" android:text="😘" />
+            <TextView style="@style/EmojiItem" android:text="😗" />
+            <TextView style="@style/EmojiItem" android:text="😚" />
+            <TextView style="@style/EmojiItem" android:text="😙" />
+            <TextView style="@style/EmojiItem" android:text="😋" />
+            <TextView style="@style/EmojiItem" android:text="😛" />
+            <TextView style="@style/EmojiItem" android:text="😜" />
+            <TextView style="@style/EmojiItem" android:text="🤪" />
+            <TextView style="@style/EmojiItem" android:text="😝" />
+            <TextView style="@style/EmojiItem" android:text="🤑" />
+            <TextView style="@style/EmojiItem" android:text="🤗" />
+            <TextView style="@style/EmojiItem" android:text="🤭" />
+            <TextView style="@style/EmojiItem" android:text="🤫" />
+            <TextView style="@style/EmojiItem" android:text="🤔" />
+            <TextView style="@style/EmojiItem" android:text="🤐" />
+            <TextView style="@style/EmojiItem" android:text="🤨" />
+            <TextView style="@style/EmojiItem" android:text="😐" />
+            <TextView style="@style/EmojiItem" android:text="😑" />
+            <TextView style="@style/EmojiItem" android:text="😶" />
+            <TextView style="@style/EmojiItem" android:text="😏" />
+            <TextView style="@style/EmojiItem" android:text="😒" />
+            <TextView style="@style/EmojiItem" android:text="🙄" />
+            <TextView style="@style/EmojiItem" android:text="😬" />
+            <TextView style="@style/EmojiItem" android:text="🤥" />
+            <TextView style="@style/EmojiItem" android:text="😌" />
+            <TextView style="@style/EmojiItem" android:text="😔" />
+            <TextView style="@style/EmojiItem" android:text="😪" />
+            <TextView style="@style/EmojiItem" android:text="🤤" />
+            <TextView style="@style/EmojiItem" android:text="😴" />
+            <TextView style="@style/EmojiItem" android:text="😷" />
+            <TextView style="@style/EmojiItem" android:text="🤒" />
+            <TextView style="@style/EmojiItem" android:text="🤕" />
+            <TextView style="@style/EmojiItem" android:text="🤢" />
+            <TextView style="@style/EmojiItem" android:text="🤮" />
+            <TextView style="@style/EmojiItem" android:text="🤧" />
+            <TextView style="@style/EmojiItem" android:text="🥵" />
+            <TextView style="@style/EmojiItem" android:text="🥶" />
+            <TextView style="@style/EmojiItem" android:text="😵" />
+            <TextView style="@style/EmojiItem" android:text="🤯" />
+            <TextView style="@style/EmojiItem" android:text="🤠" />
+            <TextView style="@style/EmojiItem" android:text="🥳" />
+            <TextView style="@style/EmojiItem" android:text="😎" />
+            <TextView style="@style/EmojiItem" android:text="🤓" />
+            <TextView style="@style/EmojiItem" android:text="🧐" />
+            <TextView style="@style/EmojiItem" android:text="😕" />
+            <TextView style="@style/EmojiItem" android:text="😟" />
+            <TextView style="@style/EmojiItem" android:text="🙁" />
+            <TextView style="@style/EmojiItem" android:text="☹️" />
+            <TextView style="@style/EmojiItem" android:text="😮" />
+            <TextView style="@style/EmojiItem" android:text="😯" />
+            <TextView style="@style/EmojiItem" android:text="😲" />
+            <TextView style="@style/EmojiItem" android:text="😳" />
+            <TextView style="@style/EmojiItem" android:text="🥺" />
+            <TextView style="@style/EmojiItem" android:text="😦" />
+            <TextView style="@style/EmojiItem" android:text="😧" />
+            <TextView style="@style/EmojiItem" android:text="😨" />
+            <TextView style="@style/EmojiItem" android:text="😰" />
+            <TextView style="@style/EmojiItem" android:text="😥" />
+            <TextView style="@style/EmojiItem" android:text="😢" />
+            <TextView style="@style/EmojiItem" android:text="😭" />
+            <TextView style="@style/EmojiItem" android:text="😱" />
+            <TextView style="@style/EmojiItem" android:text="😖" />
+            <TextView style="@style/EmojiItem" android:text="😣" />
+            <TextView style="@style/EmojiItem" android:text="😞" />
+            <TextView style="@style/EmojiItem" android:text="😓" />
+            <TextView style="@style/EmojiItem" android:text="😩" />
+            <TextView style="@style/EmojiItem" android:text="😫" />
+            <TextView style="@style/EmojiItem" android:text="🥱" />
+            <TextView style="@style/EmojiItem" android:text="😤" />
+            <TextView style="@style/EmojiItem" android:text="😡" />
+            <TextView style="@style/EmojiItem" android:text="😠" />
+            <TextView style="@style/EmojiItem" android:text="🤬" />
+            <TextView style="@style/EmojiItem" android:text="😈" />
+            <TextView style="@style/EmojiItem" android:text="👿" />
+            <TextView style="@style/EmojiItem" android:text="💀" />
+            <TextView style="@style/EmojiItem" android:text="☠️" />
+            <TextView style="@style/EmojiItem" android:text="💩" />
+            <TextView style="@style/EmojiItem" android:text="🤡" />
+            <TextView style="@style/EmojiItem" android:text="👹" />
+            <TextView style="@style/EmojiItem" android:text="👺" />
+            <TextView style="@style/EmojiItem" android:text="👻" />
+            <TextView style="@style/EmojiItem" android:text="👽" />
+            <TextView style="@style/EmojiItem" android:text="👾" />
+            <TextView style="@style/EmojiItem" android:text="🤖" />
+            <TextView style="@style/EmojiItem" android:text="😺" />
+            <TextView style="@style/EmojiItem" android:text="😸" />
+            <TextView style="@style/EmojiItem" android:text="😹" />
+            <TextView style="@style/EmojiItem" android:text="😻" />
+            <TextView style="@style/EmojiItem" android:text="😼" />
+            <TextView style="@style/EmojiItem" android:text="😽" />
+            <TextView style="@style/EmojiItem" android:text="🙀" />
+            <TextView style="@style/EmojiItem" android:text="😿" />
+            <TextView style="@style/EmojiItem" android:text="😾" />
+            <TextView style="@style/EmojiItem" android:text="🫠" />
+            <TextView style="@style/EmojiItem" android:text="🫥" />
+            <TextView style="@style/EmojiItem" android:text="🫡" />
+            <TextView style="@style/EmojiItem" android:text="🫢" />
+            <TextView style="@style/EmojiItem" android:text="🫣" />
+            <TextView style="@style/EmojiItem" android:text="🫤" />
+            <TextView style="@style/EmojiItem" android:text="🫦" />
+            <TextView style="@style/EmojiItem" android:text="🫨" />
+
+        </GridLayout>
+
+        <!-- Section: Gestures -->
+        <GridLayout
+            android:id="@+id/emoji_grid_gestures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone">
+
+            <TextView style="@style/EmojiItem" android:text="👋" />
+            <TextView style="@style/EmojiItem" android:text="🤚" />
+            <TextView style="@style/EmojiItem" android:text="🖐️" />
+            <TextView style="@style/EmojiItem" android:text="✋" />
+            <TextView style="@style/EmojiItem" android:text="🖖" />
+            <TextView style="@style/EmojiItem" android:text="👌" />
+            <TextView style="@style/EmojiItem" android:text="🤌" />
+            <TextView style="@style/EmojiItem" android:text="🤏" />
+            <TextView style="@style/EmojiItem" android:text="✌️" />
+            <TextView style="@style/EmojiItem" android:text="🤞" />
+            <TextView style="@style/EmojiItem" android:text="🤟" />
+            <TextView style="@style/EmojiItem" android:text="🤘" />
+            <TextView style="@style/EmojiItem" android:text="🤙" />
+            <TextView style="@style/EmojiItem" android:text="👈" />
+            <TextView style="@style/EmojiItem" android:text="👉" />
+            <TextView style="@style/EmojiItem" android:text="👆" />
+            <TextView style="@style/EmojiItem" android:text="🖕" />
+            <TextView style="@style/EmojiItem" android:text="👇" />
+            <TextView style="@style/EmojiItem" android:text="☝️" />
+            <TextView style="@style/EmojiItem" android:text="👍" />
+            <TextView style="@style/EmojiItem" android:text="👎" />
+            <TextView style="@style/EmojiItem" android:text="✊" />
+            <TextView style="@style/EmojiItem" android:text="👊" />
+            <TextView style="@style/EmojiItem" android:text="🤛" />
+            <TextView style="@style/EmojiItem" android:text="🤜" />
+            <TextView style="@style/EmojiItem" android:text="👏" />
+            <TextView style="@style/EmojiItem" android:text="🙌" />
+            <TextView style="@style/EmojiItem" android:text="👐" />
+            <TextView style="@style/EmojiItem" android:text="🤲" />
+            <TextView style="@style/EmojiItem" android:text="🤝" />
+            <TextView style="@style/EmojiItem" android:text="🙏" />
+            <TextView style="@style/EmojiItem" android:text="✍️" />
+            <TextView style="@style/EmojiItem" android:text="💪" />
+            <TextView style="@style/EmojiItem" android:text="🦾" />
+            <TextView style="@style/EmojiItem" android:text="🦿" />
+            <TextView style="@style/EmojiItem" android:text="🦵" />
+            <TextView style="@style/EmojiItem" android:text="🦶" />
+            <TextView style="@style/EmojiItem" android:text="👂" />
+            <TextView style="@style/EmojiItem" android:text="🦻" />
+            <TextView style="@style/EmojiItem" android:text="👃" />
+            <TextView style="@style/EmojiItem" android:text="🧠" />
+            <TextView style="@style/EmojiItem" android:text="🫀" />
+            <TextView style="@style/EmojiItem" android:text="🫁" />
+            <TextView style="@style/EmojiItem" android:text="🦷" />
+            <TextView style="@style/EmojiItem" android:text="🦴" />
+            <TextView style="@style/EmojiItem" android:text="👀" />
+            <TextView style="@style/EmojiItem" android:text="👁️" />
+            <TextView style="@style/EmojiItem" android:text="👅" />
+            <TextView style="@style/EmojiItem" android:text="👄" />
+            <TextView style="@style/EmojiItem" android:text="💋" />
+            <TextView style="@style/EmojiItem" android:text="💘" />
+            <TextView style="@style/EmojiItem" android:text="💝" />
+            <TextView style="@style/EmojiItem" android:text="💖" />
+            <TextView style="@style/EmojiItem" android:text="💗" />
+            <TextView style="@style/EmojiItem" android:text="💓" />
+            <TextView style="@style/EmojiItem" android:text="💞" />
+            <TextView style="@style/EmojiItem" android:text="💕" />
+            <TextView style="@style/EmojiItem" android:text="💟" />
+            <TextView style="@style/EmojiItem" android:text="❣️" />
+            <TextView style="@style/EmojiItem" android:text="💔" />
+            <TextView style="@style/EmojiItem" android:text="❤️" />
+            <TextView style="@style/EmojiItem" android:text="🧡" />
+            <TextView style="@style/EmojiItem" android:text="💛" />
+            <TextView style="@style/EmojiItem" android:text="💚" />
+            <TextView style="@style/EmojiItem" android:text="💙" />
+            <TextView style="@style/EmojiItem" android:text="💜" />
+            <TextView style="@style/EmojiItem" android:text="🖤" />
+            <TextView style="@style/EmojiItem" android:text="🤍" />
+            <TextView style="@style/EmojiItem" android:text="🤎" />
+            <TextView style="@style/EmojiItem" android:text="💯" />
+            <TextView style="@style/EmojiItem" android:text="💢" />
+            <TextView style="@style/EmojiItem" android:text="💥" />
+            <TextView style="@style/EmojiItem" android:text="💫" />
+            <TextView style="@style/EmojiItem" android:text="💦" />
+            <TextView style="@style/EmojiItem" android:text="💨" />
+            <TextView style="@style/EmojiItem" android:text="🕳️" />
+            <TextView style="@style/EmojiItem" android:text="💣" />
+            <TextView style="@style/EmojiItem" android:text="💬" />
+            <TextView style="@style/EmojiItem" android:text="👁️‍🗨️" />
+            <TextView style="@style/EmojiItem" android:text="🗨️" />
+            <TextView style="@style/EmojiItem" android:text="🗯️" />
+            <TextView style="@style/EmojiItem" android:text="💭" />
+            <TextView style="@style/EmojiItem" android:text="💤" />
+            <TextView style="@style/EmojiItem" android:text="🤳" />
+            <TextView style="@style/EmojiItem" android:text="💅" />
+            <TextView style="@style/EmojiItem" android:text="💃" />
+            <TextView style="@style/EmojiItem" android:text="🕺" />
+            <TextView style="@style/EmojiItem" android:text="🕴️" />
+            <TextView style="@style/EmojiItem" android:text="👯" />
+            <TextView style="@style/EmojiItem" android:text="👯‍♂️" />
+            <TextView style="@style/EmojiItem" android:text="👯‍♀️" />
+            <TextView style="@style/EmojiItem" android:text="🧘" />
+            <TextView style="@style/EmojiItem" android:text="🧘‍♂️" />
+            <TextView style="@style/EmojiItem" android:text="🧘‍♀️" />
+            <TextView style="@style/EmojiItem" android:text="🧑‍🤝‍🧑" />
+            <TextView style="@style/EmojiItem" android:text="👭" />
+            <TextView style="@style/EmojiItem" android:text="👫" />
+            <TextView style="@style/EmojiItem" android:text="👬" />
+            <TextView style="@style/EmojiItem" android:text="💏" />
+            <TextView style="@style/EmojiItem" android:text="💑" />
+            <TextView style="@style/EmojiItem" android:text="👪" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👩‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👩‍👧‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👩‍👦‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👩‍👧‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👨‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👨‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👨‍👧‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👨‍👦‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👨‍👧‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👩‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👩‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👩‍👧‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👩‍👦‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👩‍👧‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👦‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👧‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👨‍👧‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👦‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👧" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👧‍👦" />
+            <TextView style="@style/EmojiItem" android:text="👩‍👧‍👧" />
+            <TextView style="@style/EmojiItem" android:text="🧑‍🧒" />
+            <TextView style="@style/EmojiItem" android:text="🧑‍🧒‍🧒" />
+            <TextView style="@style/EmojiItem" android:text="🧑‍🧑‍🧒" />
+            <TextView style="@style/EmojiItem" android:text="🧑‍🧑‍🧒‍🧒" />
+            <TextView style="@style/EmojiItem" android:text="👤" />
+            <TextView style="@style/EmojiItem" android:text="👥" />
+            <TextView style="@style/EmojiItem" android:text="🫂" />
+            <TextView style="@style/EmojiItem" android:text="👣" />
+
+        </GridLayout>
+
+        <!-- Section: Animals & Nature -->
+        <GridLayout
+            android:id="@+id/emoji_grid_animals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone">
+
+            <TextView style="@style/EmojiItem" android:text="🐶" />
+            <TextView style="@style/EmojiItem" android:text="🐱" />
+            <TextView style="@style/EmojiItem" android:text="🐭" />
+            <TextView style="@style/EmojiItem" android:text="🐹" />
+            <TextView style="@style/EmojiItem" android:text="🐰" />
+            <TextView style="@style/EmojiItem" android:text="🦊" />
+            <TextView style="@style/EmojiItem" android:text="🐻" />
+            <TextView style="@style/EmojiItem" android:text="🐼" />
+            <TextView style="@style/EmojiItem" android:text="🐨" />
+            <TextView style="@style/EmojiItem" android:text="🐯" />
+            <TextView style="@style/EmojiItem" android:text="🦁" />
+            <TextView style="@style/EmojiItem" android:text="🐮" />
+            <TextView style="@style/EmojiItem" android:text="🐷" />
+            <TextView style="@style/EmojiItem" android:text="🐽" />
+            <TextView style="@style/EmojiItem" android:text="🐸" />
+            <TextView style="@style/EmojiItem" android:text="🐵" />
+            <TextView style="@style/EmojiItem" android:text="🙈" />
+            <TextView style="@style/EmojiItem" android:text="🙉" />
+            <TextView style="@style/EmojiItem" android:text="🙊" />
+            <TextView style="@style/EmojiItem" android:text="🐒" />
+            <TextView style="@style/EmojiItem" android:text="🐔" />
+            <TextView style="@style/EmojiItem" android:text="🐧" />
+            <TextView style="@style/EmojiItem" android:text="🐦" />
+            <TextView style="@style/EmojiItem" android:text="🐤" />
+            <TextView style="@style/EmojiItem" android:text="🐣" />
+            <TextView style="@style/EmojiItem" android:text="🐥" />
+            <TextView style="@style/EmojiItem" android:text="🦆" />
+            <TextView style="@style/EmojiItem" android:text="🦅" />
+            <TextView style="@style/EmojiItem" android:text="🦉" />
+            <TextView style="@style/EmojiItem" android:text="🦇" />
+            <TextView style="@style/EmojiItem" android:text="🐺" />
+            <TextView style="@style/EmojiItem" android:text="🐗" />
+            <TextView style="@style/EmojiItem" android:text="🐴" />
+            <TextView style="@style/EmojiItem" android:text="🦄" />
+            <TextView style="@style/EmojiItem" android:text="🐝" />
+            <TextView style="@style/EmojiItem" android:text="🐛" />
+            <TextView style="@style/EmojiItem" android:text="🦋" />
+            <TextView style="@style/EmojiItem" android:text="🐌" />
+            <TextView style="@style/EmojiItem" android:text="🐞" />
+            <TextView style="@style/EmojiItem" android:text="🐜" />
+            <TextView style="@style/EmojiItem" android:text="🦟" />
+            <TextView style="@style/EmojiItem" android:text="🦗" />
+            <TextView style="@style/EmojiItem" android:text="🕷️" />
+            <TextView style="@style/EmojiItem" android:text="🕸️" />
+            <TextView style="@style/EmojiItem" android:text="🦂" />
+            <TextView style="@style/EmojiItem" android:text="🐢" />
+            <TextView style="@style/EmojiItem" android:text="🐍" />
+            <TextView style="@style/EmojiItem" android:text="🦎" />
+            <TextView style="@style/EmojiItem" android:text="🦖" />
+            <TextView style="@style/EmojiItem" android:text="🦕" />
+            <TextView style="@style/EmojiItem" android:text="🐙" />
+            <TextView style="@style/EmojiItem" android:text="🦑" />
+            <TextView style="@style/EmojiItem" android:text="🦐" />
+            <TextView style="@style/EmojiItem" android:text="🦞" />
+            <TextView style="@style/EmojiItem" android:text="🦀" />
+            <TextView style="@style/EmojiItem" android:text="🐡" />
+            <TextView style="@style/EmojiItem" android:text="🐠" />
+            <TextView style="@style/EmojiItem" android:text="🐟" />
+            <TextView style="@style/EmojiItem" android:text="🐬" />
+            <TextView style="@style/EmojiItem" android:text="🐳" />
+            <TextView style="@style/EmojiItem" android:text="🐋" />
+            <TextView style="@style/EmojiItem" android:text="🦈" />
+            <TextView style="@style/EmojiItem" android:text="🐊" />
+            <TextView style="@style/EmojiItem" android:text="🐅" />
+            <TextView style="@style/EmojiItem" android:text="🐆" />
+            <TextView style="@style/EmojiItem" android:text="🦓" />
+            <TextView style="@style/EmojiItem" android:text="🦍" />
+            <TextView style="@style/EmojiItem" android:text="🦧" />
+            <TextView style="@style/EmojiItem" android:text="🐘" />
+            <TextView style="@style/EmojiItem" android:text="🦛" />
+            <TextView style="@style/EmojiItem" android:text="🦏" />
+            <TextView style="@style/EmojiItem" android:text="🐪" />
+            <TextView style="@style/EmojiItem" android:text="🐫" />
+            <TextView style="@style/EmojiItem" android:text="🦒" />
+            <TextView style="@style/EmojiItem" android:text="🦘" />
+            <TextView style="@style/EmojiItem" android:text="🦬" />
+            <TextView style="@style/EmojiItem" android:text="🐃" />
+            <TextView style="@style/EmojiItem" android:text="🐂" />
+            <TextView style="@style/EmojiItem" android:text="🐄" />
+            <TextView style="@style/EmojiItem" android:text="🐎" />
+            <TextView style="@style/EmojiItem" android:text="🐖" />
+            <TextView style="@style/EmojiItem" android:text="🐏" />
+            <TextView style="@style/EmojiItem" android:text="🐑" />
+            <TextView style="@style/EmojiItem" android:text="🦙" />
+            <TextView style="@style/EmojiItem" android:text="🐐" />
+            <TextView style="@style/EmojiItem" android:text="🦌" />
+            <TextView style="@style/EmojiItem" android:text="🐕" />
+            <TextView style="@style/EmojiItem" android:text="🐩" />
+            <TextView style="@style/EmojiItem" android:text="🦮" />
+            <TextView style="@style/EmojiItem" android:text="🐕‍🦺" />
+            <TextView style="@style/EmojiItem" android:text="🐈" />
+            <TextView style="@style/EmojiItem" android:text="🐈‍⬛" />
+            <TextView style="@style/EmojiItem" android:text="🪶" />
+            <TextView style="@style/EmojiItem" android:text="🐓" />
+            <TextView style="@style/EmojiItem" android:text="🦃" />
+            <TextView style="@style/EmojiItem" android:text="🦤" />
+            <TextView style="@style/EmojiItem" android:text="🦚" />
+            <TextView style="@style/EmojiItem" android:text="🦜" />
+            <TextView style="@style/EmojiItem" android:text="🦢" />
+            <TextView style="@style/EmojiItem" android:text="🦩" />
+            <TextView style="@style/EmojiItem" android:text="🕊️" />
+            <TextView style="@style/EmojiItem" android:text="🐇" />
+            <TextView style="@style/EmojiItem" android:text="🦝" />
+            <TextView style="@style/EmojiItem" android:text="🦨" />
+            <TextView style="@style/EmojiItem" android:text="🦡" />
+            <TextView style="@style/EmojiItem" android:text="🦫" />
+            <TextView style="@style/EmojiItem" android:text="🦦" />
+            <TextView style="@style/EmojiItem" android:text="🦥" />
+            <TextView style="@style/EmojiItem" android:text="🐁" />
+            <TextView style="@style/EmojiItem" android:text="🐀" />
+            <TextView style="@style/EmojiItem" android:text="🐿️" />
+            <TextView style="@style/EmojiItem" android:text="🦔" />
+            <TextView style="@style/EmojiItem" android:text="🐾" />
+            <TextView style="@style/EmojiItem" android:text="🌻" />
+            <TextView style="@style/EmojiItem" android:text="🌺" />
+            <TextView style="@style/EmojiItem" android:text="🌹" />
+            <TextView style="@style/EmojiItem" android:text="🥀" />
+            <TextView style="@style/EmojiItem" android:text="🌷" />
+            <TextView style="@style/EmojiItem" android:text="🌱" />
+            <TextView style="@style/EmojiItem" android:text="🌲" />
+            <TextView style="@style/EmojiItem" android:text="🌳" />
+            <TextView style="@style/EmojiItem" android:text="🌴" />
+            <TextView style="@style/EmojiItem" android:text="🌵" />
+            <TextView style="@style/EmojiItem" android:text="🌶️" />
+            <TextView style="@style/EmojiItem" android:text="🌾" />
+            <TextView style="@style/EmojiItem" android:text="🌿" />
+            <TextView style="@style/EmojiItem" android:text="☘️" />
+            <TextView style="@style/EmojiItem" android:text="🍀" />
+            <TextView style="@style/EmojiItem" android:text="🍁" />
+            <TextView style="@style/EmojiItem" android:text="🍂" />
+            <TextView style="@style/EmojiItem" android:text="🍃" />
+            <TextView style="@style/EmojiItem" android:text="🍄" />
+            <TextView style="@style/EmojiItem" android:text="☀️" />
+            <TextView style="@style/EmojiItem" android:text="🌤️" />
+            <TextView style="@style/EmojiItem" android:text="⛅" />
+            <TextView style="@style/EmojiItem" android:text="🌥️" />
+            <TextView style="@style/EmojiItem" android:text="☁️" />
+            <TextView style="@style/EmojiItem" android:text="🌦️" />
+            <TextView style="@style/EmojiItem" android:text="🌧️" />
+            <TextView style="@style/EmojiItem" android:text="⛈️" />
+            <TextView style="@style/EmojiItem" android:text="🌩️" />
+            <TextView style="@style/EmojiItem" android:text="⚡" />
+            <TextView style="@style/EmojiItem" android:text="☔" />
+            <TextView style="@style/EmojiItem" android:text="❄️" />
+            <TextView style="@style/EmojiItem" android:text="☃️" />
+            <TextView style="@style/EmojiItem" android:text="⛄" />
+            <TextView style="@style/EmojiItem" android:text="☄️" />
+            <TextView style="@style/EmojiItem" android:text="💧" />
+            <TextView style="@style/EmojiItem" android:text="🌊" />
+            <TextView style="@style/EmojiItem" android:text="🌫️" />
+            <TextView style="@style/EmojiItem" android:text="🌪️" />
+            <TextView style="@style/EmojiItem" android:text="🌈" />
+            <TextView style="@style/EmojiItem" android:text="☂️" />
+            <TextView style="@style/EmojiItem" android:text="🌙" />
+            <TextView style="@style/EmojiItem" android:text="🌚" />
+            <TextView style="@style/EmojiItem" android:text="🌛" />
+            <TextView style="@style/EmojiItem" android:text="🌜" />
+            <TextView style="@style/EmojiItem" android:text="🌝" />
+            <TextView style="@style/EmojiItem" android:text="🌞" />
+            <TextView style="@style/EmojiItem" android:text="⭐" />
+            <TextView style="@style/EmojiItem" android:text="🌟" />
+            <TextView style="@style/EmojiItem" android:text="💫" />
+            <TextView style="@style/EmojiItem" android:text="✨" />
+            <TextView style="@style/EmojiItem" android:text="🌠" />
+            <TextView style="@style/EmojiItem" android:text="🌌" />
+            <TextView style="@style/EmojiItem" android:text="🌍" />
+            <TextView style="@style/EmojiItem" android:text="🌎" />
+            <TextView style="@style/EmojiItem" android:text="🌏" />
+            <TextView style="@style/EmojiItem" android:text="🌑" />
+            <TextView style="@style/EmojiItem" android:text="🌒" />
+            <TextView style="@style/EmojiItem" android:text="🌓" />
+            <TextView style="@style/EmojiItem" android:text="🌔" />
+            <TextView style="@style/EmojiItem" android:text="🌕" />
+            <TextView style="@style/EmojiItem" android:text="🌖" />
+            <TextView style="@style/EmojiItem" android:text="🌗" />
+            <TextView style="@style/EmojiItem" android:text="🌘" />
+
+        </GridLayout>
+
+        <!-- Section: Food & Drink -->
+        <GridLayout
+            android:id="@+id/emoji_grid_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone">
+
+            <TextView style="@style/EmojiItem" android:text="🍇" />
+            <TextView style="@style/EmojiItem" android:text="🍈" />
+            <TextView style="@style/EmojiItem" android:text="🍉" />
+            <TextView style="@style/EmojiItem" android:text="🍊" />
+            <TextView style="@style/EmojiItem" android:text="🍋" />
+            <TextView style="@style/EmojiItem" android:text="🍌" />
+            <TextView style="@style/EmojiItem" android:text="🍍" />
+            <TextView style="@style/EmojiItem" android:text="🥭" />
+            <TextView style="@style/EmojiItem" android:text="🍎" />
+            <TextView style="@style/EmojiItem" android:text="🍏" />
+            <TextView style="@style/EmojiItem" android:text="🍐" />
+            <TextView style="@style/EmojiItem" android:text="🍑" />
+            <TextView style="@style/EmojiItem" android:text="🍒" />
+            <TextView style="@style/EmojiItem" android:text="🍓" />
+            <TextView style="@style/EmojiItem" android:text="🫐" />
+            <TextView style="@style/EmojiItem" android:text="🥝" />
+            <TextView style="@style/EmojiItem" android:text="🍅" />
+            <TextView style="@style/EmojiItem" android:text="🥥" />
+            <TextView style="@style/EmojiItem" android:text="🥑" />
+            <TextView style="@style/EmojiItem" android:text="🍆" />
+            <TextView style="@style/EmojiItem" android:text="🥔" />
+            <TextView style="@style/EmojiItem" android:text="🥕" />
+            <TextView style="@style/EmojiItem" android:text="🌽" />
+            <TextView style="@style/EmojiItem" android:text="🌶️" />
+            <TextView style="@style/EmojiItem" android:text="🫑" />
+            <TextView style="@style/EmojiItem" android:text="🥒" />
+            <TextView style="@style/EmojiItem" android:text="🥬" />
+            <TextView style="@style/EmojiItem" android:text="🥦" />
+            <TextView style="@style/EmojiItem" android:text="🧄" />
+            <TextView style="@style/EmojiItem" android:text="🧅" />
+            <TextView style="@style/EmojiItem" android:text="🍄" />
+            <TextView style="@style/EmojiItem" android:text="🥜" />
+            <TextView style="@style/EmojiItem" android:text="🌰" />
+            <TextView style="@style/EmojiItem" android:text="🍞" />
+            <TextView style="@style/EmojiItem" android:text="🥐" />
+            <TextView style="@style/EmojiItem" android:text="🥑" />
+            <TextView style="@style/EmojiItem" android:text="🍳" />
+            <TextView style="@style/EmojiItem" android:text="🥞" />
+            <TextView style="@style/EmojiItem" android:text="🥓" />
+            <TextView style="@style/EmojiItem" android:text="🥩" />
+            <TextView style="@style/EmojiItem" android:text="🥗" />
+            <TextView style="@style/EmojiItem" android:text="🍿" />
+            <TextView style="@style/EmojiItem" android:text="🧈" />
+            <TextView style="@style/EmojiItem" android:text="🧂" />
+            <TextView style="@style/EmojiItem" android:text="🥫" />
+            <TextView style="@style/EmojiItem" android:text="🍱" />
+            <TextView style="@style/EmojiItem" android:text="🍘" />
+            <TextView style="@style/EmojiItem" android:text="🍙" />
+            <TextView style="@style/EmojiItem" android:text="🍚" />
+            <TextView style="@style/EmojiItem" android:text="🍛" />
+            <TextView style="@style/EmojiItem" android:text="🍜" />
+            <TextView style="@style/EmojiItem" android:text="🍝" />
+            <TextView style="@style/EmojiItem" android:text="🍠" />
+            <TextView style="@style/EmojiItem" android:text="🍢" />
+            <TextView style="@style/EmojiItem" android:text="🍣" />
+            <TextView style="@style/EmojiItem" android:text="🍤" />
+            <TextView style="@style/EmojiItem" android:text="🍥" />
+            <TextView style="@style/EmojiItem" android:text="🥮" />
+            <TextView style="@style/EmojiItem" android:text="🍡" />
+            <TextView style="@style/EmojiItem" android:text="🥟" />
+            <TextView style="@style/EmojiItem" android:text="🥠" />
+            <TextView style="@style/EmojiItem" android:text="🥡" />
+            <TextView style="@style/EmojiItem" android:text="🦀" />
+            <TextView style="@style/EmojiItem" android:text="🦞" />
+            <TextView style="@style/EmojiItem" android:text="🦐" />
+            <TextView style="@style/EmojiItem" android:text="🦑" />
+            <TextView style="@style/EmojiItem" android:text="🦪" />
+            <TextView style="@style/EmojiItem" android:text="🍦" />
+            <TextView style="@style/EmojiItem" android:text="🍧" />
+            <TextView style="@style/EmojiItem" android:text="🍨" />
+            <TextView style="@style/EmojiItem" android:text="🍩" />
+            <TextView style="@style/EmojiItem" android:text="🍪" />
+            <TextView style="@style/EmojiItem" android:text="🎂" />
+            <TextView style="@style/EmojiItem" android:text="🍰" />
+            <TextView style="@style/EmojiItem" android:text="🧁" />
+            <TextView style="@style/EmojiItem" android:text="🥧" />
+            <TextView style="@style/EmojiItem" android:text="🍫" />
+            <TextView style="@style/EmojiItem" android:text="🍬" />
+            <TextView style="@style/EmojiItem" android:text="🍭" />
+            <TextView style="@style/EmojiItem" android:text="🍮" />
+            <TextView style="@style/EmojiItem" android:text="🍯" />
+            <TextView style="@style/EmojiItem" android:text="🍼" />
+            <TextView style="@style/EmojiItem" android:text="🥛" />
+            <TextView style="@style/EmojiItem" android:text="☕" />
+            <TextView style="@style/EmojiItem" android:text="🫖" />
+            <TextView style="@style/EmojiItem" android:text="🍵" />
+            <TextView style="@style/EmojiItem" android:text="🍶" />
+            <TextView style="@style/EmojiItem" android:text="🍾" />
+            <TextView style="@style/EmojiItem" android:text="🍷" />
+            <TextView style="@style/EmojiItem" android:text="🍸" />
+            <TextView style="@style/EmojiItem" android:text="🍹" />
+            <TextView style="@style/EmojiItem" android:text="🍺" />
+            <TextView style="@style/EmojiItem" android:text="🍻" />
+            <TextView style="@style/EmojiItem" android:text="🥂" />
+            <TextView style="@style/EmojiItem" android:text="🥃" />
+            <TextView style="@style/EmojiItem" android:text="🥤" />
+            <TextView style="@style/EmojiItem" android:text="🧋" />
+            <TextView style="@style/EmojiItem" android:text="🧃" />
+            <TextView style="@style/EmojiItem" android:text="🧉" />
+            <TextView style="@style/EmojiItem" android:text="🧊" />
+            <TextView style="@style/EmojiItem" android:text="🥢" />
+            <TextView style="@style/EmojiItem" android:text="🍽️" />
+            <TextView style="@style/EmojiItem" android:text="🍴" />
+            <TextView style="@style/EmojiItem" android:text="🥄" />
+            <TextView style="@style/EmojiItem" android:text="🔪" />
+            <TextView style="@style/EmojiItem" android:text="🏺" />
+
+        </GridLayout>
+
+        <!-- Section: Travel & Places -->
+        <GridLayout
+            android:id="@+id/emoji_grid_travel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone">
+
+            <TextView style="@style/EmojiItem" android:text="🚂" />
+            <TextView style="@style/EmojiItem" android:text="🚃" />
+            <TextView style="@style/EmojiItem" android:text="🚄" />
+            <TextView style="@style/EmojiItem" android:text="🚅" />
+            <TextView style="@style/EmojiItem" android:text="🚆" />
+            <TextView style="@style/EmojiItem" android:text="🚇" />
+            <TextView style="@style/EmojiItem" android:text="🚈" />
+            <TextView style="@style/EmojiItem" android:text="🚉" />
+            <TextView style="@style/EmojiItem" android:text="🚊" />
+            <TextView style="@style/EmojiItem" android:text="🚝" />
+            <TextView style="@style/EmojiItem" android:text="🚞" />
+            <TextView style="@style/EmojiItem" android:text="🚋" />
+            <TextView style="@style/EmojiItem" android:text="🚌" />
+            <TextView style="@style/EmojiItem" android:text="🚍" />
+            <TextView style="@style/EmojiItem" android:text="🚎" />
+            <TextView style="@style/EmojiItem" android:text="🚐" />
+            <TextView style="@style/EmojiItem" android:text="🚑" />
+            <TextView style="@style/EmojiItem" android:text="🚒" />
+            <TextView style="@style/EmojiItem" android:text="🚓" />
+            <TextView style="@style/EmojiItem" android:text="🚔" />
+            <TextView style="@style/EmojiItem" android:text="🚕" />
+            <TextView style="@style/EmojiItem" android:text="🚖" />
+            <TextView style="@style/EmojiItem" android:text="🚗" />
+            <TextView style="@style/EmojiItem" android:text="🚘" />
+            <TextView style="@style/EmojiItem" android:text="🚙" />
+            <TextView style="@style/EmojiItem" android:text="🚚" />
+            <TextView style="@style/EmojiItem" android:text="🚛" />
+            <TextView style="@style/EmojiItem" android:text="🚜" />
+            <TextView style="@style/EmojiItem" android:text="🏎️" />
+            <TextView style="@style/EmojiItem" android:text="🏍️" />
+            <TextView style="@style/EmojiItem" android:text="🛵" />
+            <TextView style="@style/EmojiItem" android:text="🦽" />
+            <TextView style="@style/EmojiItem" android:text="🦼" />
+            <TextView style="@style/EmojiItem" android:text="🛴" />
+            <TextView style="@style/EmojiItem" android:text="🚲" />
+            <TextView style="@style/EmojiItem" android:text="🛹" />
+            <TextView style="@style/EmojiItem" android:text="🛼" />
+            <TextView style="@style/EmojiItem" android:text="🚁" />
+            <TextView style="@style/EmojiItem" android:text="🛸" />
+            <TextView style="@style/EmojiItem" android:text="🚀" />
+            <TextView style="@style/EmojiItem" android:text="✈️" />
+            <TextView style="@style/EmojiItem" android:text="🛫" />
+            <TextView style="@style/EmojiItem" android:text="🛬" />
+            <TextView style="@style/EmojiItem" android:text="🪂" />
+            <TextView style="@style/EmojiItem" android:text="💺" />
+            <TextView style="@style/EmojiItem" android:text="🚢" />
+            <TextView style="@style/EmojiItem" android:text="⛵" />
+            <TextView style="@style/EmojiItem" android:text="🛥️" />
+            <TextView style="@style/EmojiItem" android:text="🛳️" />
+            <TextView style="@style/EmojiItem" android:text="⛴️" />
+            <TextView style="@style/EmojiItem" android:text="🚤" />
+            <TextView style="@style/EmojiItem" android:text="🛶" />
+            <TextView style="@style/EmojiItem" android:text="🪝" />
+            <TextView style="@style/EmojiItem" android:text="⚓" />
+            <TextView style="@style/EmojiItem" android:text="⛽" />
+            <TextView style="@style/EmojiItem" android:text="🚧" />
+            <TextView style="@style/EmojiItem" android:text="🚦" />
+            <TextView style="@style/EmojiItem" android:text="🚥" />
+            <TextView style="@style/EmojiItem" android:text="🗺️" />
+            <TextView style="@style/EmojiItem" android:text="🗿" />
+            <TextView style="@style/EmojiItem" android:text="🛂" />
+            <TextView style="@style/EmojiItem" android:text="🛃" />
+            <TextView style="@style/EmojiItem" android:text="🛄" />
+            <TextView style="@style/EmojiItem" android:text="🛅" />
+            <TextView style="@style/EmojiItem" android:text="🏔️" />
+            <TextView style="@style/EmojiItem" android:text="⛰️" />
+            <TextView style="@style/EmojiItem" android:text="🌋" />
+            <TextView style="@style/EmojiItem" android:text="🗻" />
+            <TextView style="@style/EmojiItem" android:text="🏕️" />
+            <TextView style="@style/EmojiItem" android:text="🏖️" />
+            <TextView style="@style/EmojiItem" android:text="🏜️" />
+            <TextView style="@style/EmojiItem" android:text="🏝️" />
+            <TextView style="@style/EmojiItem" android:text="🏞️" />
+            <TextView style="@style/EmojiItem" android:text="🏟️" />
+            <TextView style="@style/EmojiItem" android:text="🏛️" />
+            <TextView style="@style/EmojiItem" android:text="🏗️" />
+            <TextView style="@style/EmojiItem" android:text="🧱" />
+            <TextView style="@style/EmojiItem" android:text="🏘️" />
+            <TextView style="@style/EmojiItem" android:text="🏚️" />
+            <TextView style="@style/EmojiItem" android:text="🏠" />
+            <TextView style="@style/EmojiItem" android:text="🏡" />
+            <TextView style="@style/EmojiItem" android:text="🏢" />
+            <TextView style="@style/EmojiItem" android:text="🏣" />
+            <TextView style="@style/EmojiItem" android:text="🏤" />
+            <TextView style="@style/EmojiItem" android:text="🏥" />
+            <TextView style="@style/EmojiItem" android:text="🏦" />
+            <TextView style="@style/EmojiItem" android:text="🏨" />
+            <TextView style="@style/EmojiItem" android:text="🏩" />
+            <TextView style="@style/EmojiItem" android:text="🏪" />
+            <TextView style="@style/EmojiItem" android:text="🏫" />
+            <TextView style="@style/EmojiItem" android:text="🏬" />
+            <TextView style="@style/EmojiItem" android:text="🏭" />
+            <TextView style="@style/EmojiItem" android:text="🏯" />
+            <TextView style="@style/EmojiItem" android:text="🏰" />
+            <TextView style="@style/EmojiItem" android:text="💒" />
+            <TextView style="@style/EmojiItem" android:text="🗼" />
+            <TextView style="@style/EmojiItem" android:text="🗽" />
+            <TextView style="@style/EmojiItem" android:text="⛪" />
+            <TextView style="@style/EmojiItem" android:text="🕌" />
+            <TextView style="@style/EmojiItem" android:text="🛕" />
+            <TextView style="@style/EmojiItem" android:text="🕍" />
+            <TextView style="@style/EmojiItem" android:text="⛩️" />
+            <TextView style="@style/EmojiItem" android:text="🕋" />
+            <TextView style="@style/EmojiItem" android:text="⛲" />
+            <TextView style="@style/EmojiItem" android:text="⛺" />
+            <TextView style="@style/EmojiItem" android:text="🌁" />
+            <TextView style="@style/EmojiItem" android:text="🌃" />
+            <TextView style="@style/EmojiItem" android:text="🏙️" />
+            <TextView style="@style/EmojiItem" android:text="🌄" />
+            <TextView style="@style/EmojiItem" android:text="🌅" />
+            <TextView style="@style/EmojiItem" android:text="🌆" />
+            <TextView style="@style/EmojiItem" android:text="🌇" />
+            <TextView style="@style/EmojiItem" android:text="🌉" />
+            <TextView style="@style/EmojiItem" android:text="♨️" />
+            <TextView style="@style/EmojiItem" android:text="🎠" />
+            <TextView style="@style/EmojiItem" android:text="🎡" />
+            <TextView style="@style/EmojiItem" android:text="🎢" />
+            <TextView style="@style/EmojiItem" android:text="💈" />
+            <TextView style="@style/EmojiItem" android:text="🎪" />
+
+        </GridLayout>
+
+        <!-- Section: Objects & Activities -->
+        <GridLayout
+            android:id="@+id/emoji_grid_objects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone">
+
+            <TextView style="@style/EmojiItem" android:text="💡" />
+            <TextView style="@style/EmojiItem" android:text="🔦" />
+            <TextView style="@style/EmojiItem" android:text="🕯️" />
+            <TextView style="@style/EmojiItem" android:text="🧯" />
+            <TextView style="@style/EmojiItem" android:text="🪔" />
+            <TextView style="@style/EmojiItem" android:text="📱" />
+            <TextView style="@style/EmojiItem" android:text="📲" />
+            <TextView style="@style/EmojiItem" android:text="☎️" />
+            <TextView style="@style/EmojiItem" android:text="📞" />
+            <TextView style="@style/EmojiItem" android:text="📟" />
+            <TextView style="@style/EmojiItem" android:text="📠" />
+            <TextView style="@style/EmojiItem" android:text="🔋" />
+            <TextView style="@style/EmojiItem" android:text="🔌" />
+            <TextView style="@style/EmojiItem" android:text="💻" />
+            <TextView style="@style/EmojiItem" android:text="🖥️" />
+            <TextView style="@style/EmojiItem" android:text="🖨️" />
+            <TextView style="@style/EmojiItem" android:text="⌨️" />
+            <TextView style="@style/EmojiItem" android:text="🖱️" />
+            <TextView style="@style/EmojiItem" android:text="🖲️" />
+            <TextView style="@style/EmojiItem" android:text="🕹️" />
+            <TextView style="@style/EmojiItem" android:text="🗜️" />
+            <TextView style="@style/EmojiItem" android:text="💾" />
+            <TextView style="@style/EmojiItem" android:text="💿" />
+            <TextView style="@style/EmojiItem" android:text="📀" />
+            <TextView style="@style/EmojiItem" android:text="📼" />
+            <TextView style="@style/EmojiItem" android:text="📷" />
+            <TextView style="@style/EmojiItem" android:text="📸" />
+            <TextView style="@style/EmojiItem" android:text="📹" />
+            <TextView style="@style/EmojiItem" android:text="🎥" />
+            <TextView style="@style/EmojiItem" android:text="📽️" />
+            <TextView style="@style/EmojiItem" android:text="🎞️" />
+            <TextView style="@style/EmojiItem" android:text="📺" />
+            <TextView style="@style/EmojiItem" android:text="📻" />
+            <TextView style="@style/EmojiItem" android:text="🎙️" />
+            <TextView style="@style/EmojiItem" android:text="🎚️" />
+            <TextView style="@style/EmojiItem" android:text="🎛️" />
+            <TextView style="@style/EmojiItem" android:text="⏱️" />
+            <TextView style="@style/EmojiItem" android:text="⏲️" />
+            <TextView style="@style/EmojiItem" android:text="⏰" />
+            <TextView style="@style/EmojiItem" android:text="🕰️" />
+            <TextView style="@style/EmojiItem" android:text="⌛" />
+            <TextView style="@style/EmojiItem" android:text="⏳" />
+            <TextView style="@style/EmojiItem" android:text="📡" />
+            <TextView style="@style/EmojiItem" android:text="🔭" />
+            <TextView style="@style/EmojiItem" android:text="🔬" />
+            <TextView style="@style/EmojiItem" android:text="💊" />
+            <TextView style="@style/EmojiItem" android:text="💉" />
+            <TextView style="@style/EmojiItem" android:text="🩸" />
+            <TextView style="@style/EmojiItem" android:text="🩹" />
+            <TextView style="@style/EmojiItem" android:text="🩺" />
+            <TextView style="@style/EmojiItem" android:text="🩻" />
+            <TextView style="@style/EmojiItem" android:text="🩼" />
+            <TextView style="@style/EmojiItem" android:text="💰" />
+            <TextView style="@style/EmojiItem" android:text="💴" />
+            <TextView style="@style/EmojiItem" android:text="💵" />
+            <TextView style="@style/EmojiItem" android:text="💶" />
+            <TextView style="@style/EmojiItem" android:text="💷" />
+            <TextView style="@style/EmojiItem" android:text="💸" />
+            <TextView style="@style/EmojiItem" android:text="💳" />
+            <TextView style="@style/EmojiItem" android:text="🧾" />
+            <TextView style="@style/EmojiItem" android:text="💹" />
+            <TextView style="@style/EmojiItem" android:text="✉️" />
+            <TextView style="@style/EmojiItem" android:text="📧" />
+            <TextView style="@style/EmojiItem" android:text="📨" />
+            <TextView style="@style/EmojiItem" android:text="📩" />
+            <TextView style="@style/EmojiItem" android:text="📤" />
+            <TextView style="@style/EmojiItem" android:text="📥" />
+            <TextView style="@style/EmojiItem" android:text="📦" />
+            <TextView style="@style/EmojiItem" android:text="📫" />
+            <TextView style="@style/EmojiItem" android:text="📪" />
+            <TextView style="@style/EmojiItem" android:text="📬" />
+            <TextView style="@style/EmojiItem" android:text="📭" />
+            <TextView style="@style/EmojiItem" android:text="📮" />
+            <TextView style="@style/EmojiItem" android:text="🗳️" />
+            <TextView style="@style/EmojiItem" android:text="✏️" />
+            <TextView style="@style/EmojiItem" android:text="✒️" />
+            <TextView style="@style/EmojiItem" android:text="🖋️" />
+            <TextView style="@style/EmojiItem" android:text="🖊️" />
+            <TextView style="@style/EmojiItem" android:text="🖌️" />
+            <TextView style="@style/EmojiItem" android:text="🖍️" />
+            <TextView style="@style/EmojiItem" android:text="📝" />
+            <TextView style="@style/EmojiItem" android:text="💼" />
+            <TextView style="@style/EmojiItem" android:text="📁" />
+            <TextView style="@style/EmojiItem" android:text="📂" />
+            <TextView style="@style/EmojiItem" android:text="🗂️" />
+            <TextView style="@style/EmojiItem" android:text="📅" />
+            <TextView style="@style/EmojiItem" android:text="📆" />
+            <TextView style="@style/EmojiItem" android:text="🗒️" />
+            <TextView style="@style/EmojiItem" android:text="🗓️" />
+            <TextView style="@style/EmojiItem" android:text="📇" />
+            <TextView style="@style/EmojiItem" android:text="📈" />
+            <TextView style="@style/EmojiItem" android:text="📉" />
+            <TextView style="@style/EmojiItem" android:text="📊" />
+            <TextView style="@style/EmojiItem" android:text="📋" />
+            <TextView style="@style/EmojiItem" android:text="📌" />
+            <TextView style="@style/EmojiItem" android:text="📍" />
+            <TextView style="@style/EmojiItem" android:text="📎" />
+            <TextView style="@style/EmojiItem" android:text="🖇️" />
+            <TextView style="@style/EmojiItem" android:text="📏" />
+            <TextView style="@style/EmojiItem" android:text="📐" />
+            <TextView style="@style/EmojiItem" android:text="✂️" />
+            <TextView style="@style/EmojiItem" android:text="🗃️" />
+            <TextView style="@style/EmojiItem" android:text="🗄️" />
+            <TextView style="@style/EmojiItem" android:text="🗑️" />
+            <TextView style="@style/EmojiItem" android:text="🔒" />
+            <TextView style="@style/EmojiItem" android:text="🔓" />
+            <TextView style="@style/EmojiItem" android:text="🔏" />
+            <TextView style="@style/EmojiItem" android:text="🔐" />
+            <TextView style="@style/EmojiItem" android:text="🔑" />
+            <TextView style="@style/EmojiItem" android:text="🗝️" />
+            <TextView style="@style/EmojiItem" android:text="🔨" />
+            <TextView style="@style/EmojiItem" android:text="🪓" />
+            <TextView style="@style/EmojiItem" android:text="🪚" />
+            <TextView style="@style/EmojiItem" android:text="⛏️" />
+            <TextView style="@style/EmojiItem" android:text="⚒️" />
+            <TextView style="@style/EmojiItem" android:text="🛠️" />
+            <TextView style="@style/EmojiItem" android:text="🔧" />
+            <TextView style="@style/EmojiItem" android:text="🪛" />
+            <TextView style="@style/EmojiItem" android:text="🔩" />
+            <TextView style="@style/EmojiItem" android:text="⚙️" />
+            <TextView style="@style/EmojiItem" android:text="⚖️" />
+            <TextView style="@style/EmojiItem" android:text="🦯" />
+            <TextView style="@style/EmojiItem" android:text="🔗" />
+            <TextView style="@style/EmojiItem" android:text="⛓️" />
+            <TextView style="@style/EmojiItem" android:text="🧰" />
+            <TextView style="@style/EmojiItem" android:text="🧲" />
+            <TextView style="@style/EmojiItem" android:text="🪜" />
+            <TextView style="@style/EmojiItem" android:text="⚗️" />
+            <TextView style="@style/EmojiItem" android:text="🧪" />
+            <TextView style="@style/EmojiItem" android:text="🧫" />
+            <TextView style="@style/EmojiItem" android:text="🧬" />
+            <TextView style="@style/EmojiItem" android:text="🎉" />
+            <TextView style="@style/EmojiItem" android:text="🎊" />
+            <TextView style="@style/EmojiItem" android:text="🎈" />
+            <TextView style="@style/EmojiItem" android:text="🎁" />
+            <TextView style="@style/EmojiItem" android:text="🎀" />
+            <TextView style="@style/EmojiItem" android:text="🎗️" />
+            <TextView style="@style/EmojiItem" android:text="🎟️" />
+            <TextView style="@style/EmojiItem" android:text="🎫" />
+            <TextView style="@style/EmojiItem" android:text="🎖️" />
+            <TextView style="@style/EmojiItem" android:text="🏆" />
+            <TextView style="@style/EmojiItem" android:text="🏅" />
+            <TextView style="@style/EmojiItem" android:text="🥇" />
+            <TextView style="@style/EmojiItem" android:text="🥈" />
+            <TextView style="@style/EmojiItem" android:text="🥉" />
+            <TextView style="@style/EmojiItem" android:text="⚽" />
+            <TextView style="@style/EmojiItem" android:text="⚾" />
+            <TextView style="@style/EmojiItem" android:text="🥎" />
+            <TextView style="@style/EmojiItem" android:text="🏀" />
+            <TextView style="@style/EmojiItem" android:text="🏐" />
+            <TextView style="@style/EmojiItem" android:text="🏈" />
+            <TextView style="@style/EmojiItem" android:text="🏉" />
+            <TextView style="@style/EmojiItem" android:text="🎾" />
+            <TextView style="@style/EmojiItem" android:text="🥏" />
+            <TextView style="@style/EmojiItem" android:text="🎳" />
+            <TextView style="@style/EmojiItem" android:text="🏏" />
+            <TextView style="@style/EmojiItem" android:text="🏑" />
+            <TextView style="@style/EmojiItem" android:text="🏒" />
+            <TextView style="@style/EmojiItem" android:text="🥍" />
+            <TextView style="@style/EmojiItem" android:text="🏓" />
+            <TextView style="@style/EmojiItem" android:text="🏸" />
+            <TextView style="@style/EmojiItem" android:text="🥊" />
+            <TextView style="@style/EmojiItem" android:text="🥋" />
+            <TextView style="@style/EmojiItem" android:text="🥅" />
+            <TextView style="@style/EmojiItem" android:text="⛳" />
+            <TextView style="@style/EmojiItem" android:text="⛸️" />
+            <TextView style="@style/EmojiItem" android:text="🎣" />
+            <TextView style="@style/EmojiItem" android:text="🤿" />
+            <TextView style="@style/EmojiItem" android:text="🎽" />
+            <TextView style="@style/EmojiItem" android:text="🎿" />
+            <TextView style="@style/EmojiItem" android:text="🛷" />
+            <TextView style="@style/EmojiItem" android:text="🥌" />
+            <TextView style="@style/EmojiItem" android:text="🎯" />
+            <TextView style="@style/EmojiItem" android:text="🪀" />
+            <TextView style="@style/EmojiItem" android:text="🪁" />
+            <TextView style="@style/EmojiItem" android:text="🎱" />
+            <TextView style="@style/EmojiItem" android:text="🎮" />
+            <TextView style="@style/EmojiItem" android:text="🕹️" />
+            <TextView style="@style/EmojiItem" android:text="🎰" />
+            <TextView style="@style/EmojiItem" android:text="🧩" />
+            <TextView style="@style/EmojiItem" android:text="🃏" />
+            <TextView style="@style/EmojiItem" android:text="🀄" />
+            <TextView style="@style/EmojiItem" android:text="🎴" />
+            <TextView style="@style/EmojiItem" android:text="🎭" />
+            <TextView style="@style/EmojiItem" android:text="🖼️" />
+            <TextView style="@style/EmojiItem" android:text="🎨" />
+            <TextView style="@style/EmojiItem" android:text="🧵" />
+            <TextView style="@style/EmojiItem" android:text="🪡" />
+            <TextView style="@style/EmojiItem" android:text="🧶" />
+            <TextView style="@style/EmojiItem" android:text="🪢" />
+            <TextView style="@style/EmojiItem" android:text="👓" />
+            <TextView style="@style/EmojiItem" android:text="🕶️" />
+            <TextView style="@style/EmojiItem" android:text="🥽" />
+            <TextView style="@style/EmojiItem" android:text="🥼" />
+            <TextView style="@style/EmojiItem" android:text="🦺" />
+            <TextView style="@style/EmojiItem" android:text="👔" />
+            <TextView style="@style/EmojiItem" android:text="👕" />
+            <TextView style="@style/EmojiItem" android:text="👖" />
+            <TextView style="@style/EmojiItem" android:text="🧣" />
+            <TextView style="@style/EmojiItem" android:text="🧤" />
+            <TextView style="@style/EmojiItem" android:text="🧥" />
+            <TextView style="@style/EmojiItem" android:text="🧦" />
+            <TextView style="@style/EmojiItem" android:text="👗" />
+            <TextView style="@style/EmojiItem" android:text="👘" />
+            <TextView style="@style/EmojiItem" android:text="🥻" />
+            <TextView style="@style/EmojiItem" android:text="🩱" />
+            <TextView style="@style/EmojiItem" android:text="🩲" />
+            <TextView style="@style/EmojiItem" android:text="🩳" />
+            <TextView style="@style/EmojiItem" android:text="👙" />
+            <TextView style="@style/EmojiItem" android:text="👚" />
+            <TextView style="@style/EmojiItem" android:text="👛" />
+            <TextView style="@style/EmojiItem" android:text="👜" />
+            <TextView style="@style/EmojiItem" android:text="👝" />
+            <TextView style="@style/EmojiItem" android:text="🛍️" />
+            <TextView style="@style/EmojiItem" android:text="🎒" />
+            <TextView style="@style/EmojiItem" android:text="👞" />
+            <TextView style="@style/EmojiItem" android:text="👟" />
+            <TextView style="@style/EmojiItem" android:text="🥾" />
+            <TextView style="@style/EmojiItem" android:text="🥿" />
+            <TextView style="@style/EmojiItem" android:text="👠" />
+            <TextView style="@style/EmojiItem" android:text="👡" />
+            <TextView style="@style/EmojiItem" android:text="🩰" />
+            <TextView style="@style/EmojiItem" android:text="👢" />
+            <TextView style="@style/EmojiItem" android:text="👑" />
+            <TextView style="@style/EmojiItem" android:text="👒" />
+            <TextView style="@style/EmojiItem" android:text="🎩" />
+            <TextView style="@style/EmojiItem" android:text="🎓" />
+            <TextView style="@style/EmojiItem" android:text="🧢" />
+            <TextView style="@style/EmojiItem" android:text="⛑️" />
+            <TextView style="@style/EmojiItem" android:text="🪖" />
+            <TextView style="@style/EmojiItem" android:text="💄" />
+            <TextView style="@style/EmojiItem" android:text="💍" />
+            <TextView style="@style/EmojiItem" android:text="🎤" />
+            <TextView style="@style/EmojiItem" android:text="🎧" />
+            <TextView style="@style/EmojiItem" android:text="🎼" />
+            <TextView style="@style/EmojiItem" android:text="🎵" />
+            <TextView style="@style/EmojiItem" android:text="🎶" />
+            <TextView style="@style/EmojiItem" android:text="🎹" />
+            <TextView style="@style/EmojiItem" android:text="🥁" />
+            <TextView style="@style/EmojiItem" android:text="🎷" />
+            <TextView style="@style/EmojiItem" android:text="🎺" />
+            <TextView style="@style/EmojiItem" android:text="🎸" />
+            <TextView style="@style/EmojiItem" android:text="🪗" />
+            <TextView style="@style/EmojiItem" android:text="🎻" />
+            <TextView style="@style/EmojiItem" android:text="🎲" />
+            <TextView style="@style/EmojiItem" android:text="🔮" />
+            <TextView style="@style/EmojiItem" android:text="🪄" />
+            <TextView style="@style/EmojiItem" android:text="🧿" />
+            <TextView style="@style/EmojiItem" android:text="🪬" />
+
+        </GridLayout>
+
+        <!-- Section: Symbols -->
+        <GridLayout
+            android:id="@+id/emoji_grid_symbols"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="10"
+            android:visibility="gone">
+
+            <TextView style="@style/EmojiItem" android:text="✨" />
+            <TextView style="@style/EmojiItem" android:text="⭐" />
+            <TextView style="@style/EmojiItem" android:text="🌟" />
+            <TextView style="@style/EmojiItem" android:text="💫" />
+            <TextView style="@style/EmojiItem" android:text="🔥" />
+            <TextView style="@style/EmojiItem" android:text="💥" />
+            <TextView style="@style/EmojiItem" android:text="💢" />
+            <TextView style="@style/EmojiItem" android:text="💯" />
+            <TextView style="@style/EmojiItem" android:text="✅" />
+            <TextView style="@style/EmojiItem" android:text="❌" />
+            <TextView style="@style/EmojiItem" android:text="⭕" />
+            <TextView style="@style/EmojiItem" android:text="❓" />
+            <TextView style="@style/EmojiItem" android:text="❔" />
+            <TextView style="@style/EmojiItem" android:text="❗" />
+            <TextView style="@style/EmojiItem" android:text="❕" />
+            <TextView style="@style/EmojiItem" android:text="💬" />
+            <TextView style="@style/EmojiItem" android:text="💭" />
+            <TextView style="@style/EmojiItem" android:text="💤" />
+            <TextView style="@style/EmojiItem" android:text="💨" />
+            <TextView style="@style/EmojiItem" android:text="💦" />
+            <TextView style="@style/EmojiItem" android:text="🕳️" />
+            <TextView style="@style/EmojiItem" android:text="💣" />
+            <TextView style="@style/EmojiItem" android:text="💊" />
+            <TextView style="@style/EmojiItem" android:text="💉" />
+            <TextView style="@style/EmojiItem" android:text="🩸" />
+            <TextView style="@style/EmojiItem" android:text="🩹" />
+            <TextView style="@style/EmojiItem" android:text="🩺" />
+            <TextView style="@style/EmojiItem" android:text="🎉" />
+            <TextView style="@style/EmojiItem" android:text="🎊" />
+            <TextView style="@style/EmojiItem" android:text="🎈" />
+            <TextView style="@style/EmojiItem" android:text="🎁" />
+            <TextView style="@style/EmojiItem" android:text="🎀" />
+            <TextView style="@style/EmojiItem" android:text="🎗️" />
+            <TextView style="@style/EmojiItem" android:text="🎟️" />
+            <TextView style="@style/EmojiItem" android:text="🎫" />
+            <TextView style="@style/EmojiItem" android:text="🎪" />
+            <TextView style="@style/EmojiItem" android:text="🎭" />
+            <TextView style="@style/EmojiItem" android:text="🎨" />
+            <TextView style="@style/EmojiItem" android:text="🎬" />
+            <TextView style="@style/EmojiItem" android:text="👁️‍🗨️" />
+            <TextView style="@style/EmojiItem" android:text="🗨️" />
+            <TextView style="@style/EmojiItem" android:text="🗯️" />
+            <TextView style="@style/EmojiItem" android:text="💋" />
+            <TextView style="@style/EmojiItem" android:text="💘" />
+            <TextView style="@style/EmojiItem" android:text="💝" />
+            <TextView style="@style/EmojiItem" android:text="💖" />
+            <TextView style="@style/EmojiItem" android:text="💗" />
+            <TextView style="@style/EmojiItem" android:text="💓" />
+            <TextView style="@style/EmojiItem" android:text="💞" />
+            <TextView style="@style/EmojiItem" android:text="💕" />
+            <TextView style="@style/EmojiItem" android:text="💟" />
+            <TextView style="@style/EmojiItem" android:text="❣️" />
+            <TextView style="@style/EmojiItem" android:text="💔" />
+            <TextView style="@style/EmojiItem" android:text="❤️" />
+            <TextView style="@style/EmojiItem" android:text="🧡" />
+            <TextView style="@style/EmojiItem" android:text="💛" />
+            <TextView style="@style/EmojiItem" android:text="💚" />
+            <TextView style="@style/EmojiItem" android:text="💙" />
+            <TextView style="@style/EmojiItem" android:text="💜" />
+            <TextView style="@style/EmojiItem" android:text="🖤" />
+            <TextView style="@style/EmojiItem" android:text="🤍" />
+            <TextView style="@style/EmojiItem" android:text="🤎" />
+
+        </GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

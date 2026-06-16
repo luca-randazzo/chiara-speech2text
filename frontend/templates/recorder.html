@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chiara-speech2text — Record</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    body { background:var(--bg,#0b1220); color:var(--fg,#e6eef8); }
+    .home-icon { position:absolute; top:1.5rem; left:1.5rem; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background:rgba(255,255,255,0.05); text-decoration:none; color:inherit; transition:background 0.2s; font-size:24px; cursor:pointer; }
+    .home-icon:hover { background:rgba(255,255,255,0.1); }
+    .home-icon .material-symbols-outlined { font-size:24px; }
+    .recorder-page { padding-top:4rem; }
+    
+    /* Override choice-button for recorder (not circular) */
+    .recorder-page .choice-button {
+      width: auto;
+      height: auto;
+      flex-direction: row;
+      padding: 1.5rem 3rem;
+      border-radius: 0.75rem;
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 1rem auto;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    
+    .recorder-page .choice-button:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+      transform: translateY(-2px);
+      color: var(--text-dark);
+    }
+    
+    .recorder-page .upload-secondary-btn {
+      color: var(--text-dark);
+    }
+    
+    .recorder-page .upload-secondary-btn:hover {
+      color: var(--text-dark);
+    }
+    
+    .recorder-page #start-session-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Home button -->
+  <a href="/" class="home-icon" title="Home">
+    <span class="material-symbols-outlined">home</span>
+  </a>
+
+  <div class="container recorder-page">
+    <!-- Setup Section -->
+    <div id="setup-section">
+      <button id="start-session-btn" class="choice-button">
+        <div class="icon">
+          <span class="material-symbols-outlined">mic</span>
+        </div>
+        <div>Start Recording</div>
+      </button>
+
+      <div class="words-and-upload-container">
+        <div class="words-list-preview">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+            <label for="words-list" style="margin-bottom: 0;">Inputs List</label>
+            <div class="saved-lists-controls" style="display: flex; align-items: center; gap: 0.5rem;">
+              <span id="list-emoji" style="font-size: 1.5rem; cursor: pointer; display: none;" title="Change emoji">📝</span>
+              <select id="word-set-selector" class="setting-input" style="max-width: 150px;">
+                <option value="">Select a list...</option>
+              </select>
+              <button id="delete-list-btn" class="icon-button" style="display: none; color: var(--error-color, #ff4444);" title="Delete list">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </div>
+          <textarea id="words-list" readonly rows="5"></textarea>
+        </div>
+
+        <div class="upload-secondary-container">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            <button id="upload-trigger-btn" class="upload-secondary-btn">
+              <span class="material-symbols-outlined">upload_file</span>
+              Upload New List...
+            </button>
+            <button id="info-btn" class="info-button" title="Info">
+              <span class="material-symbols-outlined" style="color: var(--primary-color);">info</span>
+            </button>
+          </div>
+          <input id="words-file" type="file" accept=".txt" style="display: none;" />
+          <p id="upload-feedback"></p>
+        </div>
+      </div>
+
+      <!-- Username field -->
+      <div class="username-container">
+        <label for="input-name" style="margin: 0;">Username</label>
+        <input type="text" id="input-name" class="setting-input" placeholder="chiara" value="chiara" style="width: 150px;">
+        <button id="recorder-info-btn" class="info-button" title="Info" style="cursor: pointer;">
+          <span class="material-symbols-outlined" style="color: var(--primary-color);">info</span>
+        </button>
+      </div>
+      
+      <!-- Username Info Modal -->
+      <div id="recorder-username-info-modal" class="modal-overlay">
+        <div class="modal-content">
+          <button class="modal-close" aria-label="Close">&times;</button>
+          <h2>Username Info</h2>
+          <div style="padding: 0 1rem; line-height: 1.6;">
+            <p>"username" is used to tag data, using format: <strong>YYYYMMDD_username</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training Section -->
+    <div id="training-section" style="display:none;">
+      <button id="play-pause-btn" class="choice-button">
+        <div class="icon">
+          <span class="material-symbols-outlined">play_arrow</span>
+        </div>
+        <div>Play</div>
+      </button>
+
+      <div class="training-word-audio-container">
+        <div id="word-display" class="word-display-container">
+          <p class="current-word">...</p>
+        </div>
+
+        <div class="mic-visualizer-container">
+          <canvas id="mic-visualizer" width="250" height="100"></canvas>
+        </div>
+      </div>
+      <div class="record-progress-container">
+        <div id="record-progress-bar" class="record-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="progress-bar-container" class="progress-container">
+    <div class="progress-bar"></div>
+  </div>
+
+  <!-- Info Modal -->
+  <div id="info-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close instructions">&times;</button>
+      <h2>Instructions for Input File</h2>
+      <div style="padding: 0 1rem; line-height: 1.6;">
+        <p>To upload a custom set of inputs (e.g. words, phrases), the input file must:</p>
+        <ul style="list-style-position: inside; margin-top: 1rem;">
+          <li>have extension: <strong>.txt</strong></li>
+          <li>use encoding: <strong>UTF-8</strong></li>
+          <li>have one input (e.g. word, phrase) per row</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          You can download a template here: <a href="/static/inputs-template.txt" download style="color: var(--primary-color);">inputs-template.txt</a>. <br>
+          Download it, modify it as needed (e.g. insert your custom words, phrases), and upload it again. <br>
+          <strong>NOTE</strong>: Inputs will be shuffled to prevent systemic biases during training.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Input Set Modal -->
+  <div id="edit-set-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 420px;">
+      <button class="modal-close" id="edit-set-close" aria-label="Close editor">&times;</button>
+      <h2 style="margin-bottom: 1.5rem;">Edit Input Set</h2>
+      <div style="padding: 0 1rem; display: flex; flex-direction: column; gap: 1.25rem;">
+
+        <!-- Emoji picker row -->
+        <div>
+          <label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; opacity: 0.7;">Emoji</label>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span id="edit-set-emoji-preview" style="font-size: 2rem; line-height: 1; min-width: 2.5rem; text-align: center;">📝</span>
+            <input id="edit-set-emoji-input" type="text" class="setting-input"
+                   placeholder="Paste or type an emoji…"
+                   style="flex: 1; font-size: 1.3rem;" maxlength="8" />
+          </div>
+          <a href="https://getemoji.com/" target="_blank" rel="noopener noreferrer"
+             style="font-size: 0.8rem; color: var(--primary-color); text-decoration: none; margin-top: 0.25rem; display: inline-block; opacity: 0.85;">
+            🔗 Get emojis at getemoji.com
+          </a>
+        </div>
+
+        <!-- inputs_id row -->
+        <div>
+          <label for="edit-set-id-input" style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; opacity: 0.7;">Set ID (name)</label>
+          <input id="edit-set-id-input" type="text" class="setting-input"
+                 placeholder="e.g. my-words"
+                 style="width: 100%; box-sizing: border-box;" />
+        </div>
+
+        <p id="edit-set-error" style="color: var(--error-color, #ff4444); font-size: 0.85rem; display: none; margin: 0;"></p>
+
+        <button id="edit-set-save-btn" class="choice-button"
+                style="margin: 0.5rem 0 0; padding: 0.75rem 1.5rem; font-size: 1rem;">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/recorder.js"></script>
+</body>
+
+</html>

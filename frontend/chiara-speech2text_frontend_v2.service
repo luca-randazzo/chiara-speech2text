@@ -1,0 +1,33 @@
+[Unit]
+Description=Chiara Speech2Text Frontend Server
+After=network.target
+
+[Service]
+Type=simple
+User=lucar
+Group=lucar
+
+# Set the working directory to where the script is located
+WorkingDirectory=/home/lucar/Development/chiara-speech2text_private-v2/frontend
+
+# 2) Create Tailscale Serve config in background (run as root via systemd '+' prefix)
+# this allows to forward to a HTTPS port (required for microphone access)
+ExecStartPre=+/usr/bin/tailscale serve --bg --https=443 http://127.0.0.1:5020
+
+# 3) Verify Tailscale Serve status (also run as root)
+ExecStartPre=+/usr/bin/tailscale serve status
+
+# 1) Start app locally on loopback only
+ExecStart=/home/lucar/Development/chiara-speech2text_private-v2/.stt/bin/python /home/lucar/Development/chiara-speech2text_private-v2/frontend/frontend.py --env-file /home/lucar/Development/chiara-speech2text_private-v2/envs/.env
+
+# Restart the service automatically if it crashes
+Restart=always
+# Wait 5 seconds before restarting
+RestartSec=5
+
+# Output logging (viewable via journalctl)
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

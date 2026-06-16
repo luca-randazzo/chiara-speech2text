@@ -1,0 +1,7 @@
+{
+    "average_wer": {
+        "whisper_vanilla": 5.45,
+        "whisper_finetuned1": 0.16,
+        "whisper_finetuned2": 0.08
+    }
+}

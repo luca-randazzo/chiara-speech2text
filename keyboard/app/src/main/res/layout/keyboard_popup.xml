@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:background="@drawable/emoji_popup_background">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="280dp"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Letters Grid (Left) -->
+                <GridLayout
+                    android:id="@+id/letters_grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="10">
+
+                    <!-- numbers -->
+                    <TextView style="@style/PopupKeyItem" android:text="1" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="2" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="3" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="4" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="5" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="6" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="7" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="8" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="9" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="0" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+
+                    <!-- Q-P -->
+                    <TextView style="@style/PopupKeyItem" android:text="Q" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="W" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="E" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="R" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="T" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="Y" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="U" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="I" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="O" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="P" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+
+                    <!-- A-L -->
+                    <TextView style="@style/PopupKeyItem" android:text="A" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="S" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="D" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="F" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="G" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="H" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="J" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="K" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="L" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="" />
+
+                    <!-- Z-M -->
+                    <TextView style="@style/PopupKeyItem" android:text="Z" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="X" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="C" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="V" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="B" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="N" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="M" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="" />
+                    <TextView style="@style/PopupKeyItem" android:text="" />
+                    <TextView style="@style/PopupKeyItem" android:text="" />
+                </GridLayout>
+
+                <!-- Symbols Grid (Right) -->
+                <GridLayout
+                    android:id="@+id/symbols_grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:columnCount="9">
+
+                    <!-- Punctuation -->
+                    <TextView style="@style/PopupKeyItem" android:text="?" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="!" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="." android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="," android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text=":" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text=";" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="-" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="_" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="'" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="&quot;" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="(" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text=")" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="[" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="]" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="{" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="}" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="/" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="\" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="@" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="#" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="$" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="%" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="&amp;" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="*" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="+" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="=" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="&lt;" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="&gt;" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="|" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+                    <TextView style="@style/PopupKeyItem" android:text="~" android:layout_margin="2dp" android:background="@drawable/popup_key_background" />
+
+                </GridLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Action Buttons Row - Outside ScrollView -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
+
+        <ImageButton
+            android:id="@+id/popup_caps_lock"
+            style="@style/PopupKeyItem"
+            android:src="@drawable/ic_shift"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/btn_caps_lock_description"
+            android:padding="8dp"
+            android:background="@drawable/popup_key_background" />
+
+        <ImageButton
+            android:id="@+id/popup_space"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="2dp"
+            android:gravity="center"
+            android:src="@drawable/ic_space_bar"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/desc_space_bar"
+            android:padding="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/popup_key_background" />
+
+        <ImageButton
+            android:id="@+id/popup_backspace"
+            style="@style/PopupKeyItem"
+            android:layout_width="64dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_backspace"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/backspace_button_hint"
+            android:padding="8dp"
+            android:background="@drawable/popup_key_background" />
+
+        <ImageButton
+            android:id="@+id/popup_enter"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_margin="2dp"
+            android:gravity="center"
+            android:src="@drawable/ic_enter"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/btn_enter_description"
+            android:padding="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/popup_key_background" />
+
+    </LinearLayout>
+
+</LinearLayout>

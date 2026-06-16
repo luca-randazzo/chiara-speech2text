@@ -1,0 +1,16 @@
+# --- model-server
+# Core ML/ASR
+faster-whisper>=1.0.0
+# ctranslate2>=4.0.0 this has to be installed manually, with CUDA support
+torch       --index-url https://download.pytorch.org/whl/cu130  # https://pytorch.org/get-started/locally/
+#torchvision --index-url https://download.pytorch.org/whl/cu130  # https://pytorch.org/get-started/locally/
+# API/Server
+fastapi>=0.104.0
+uvicorn>=0.24.0
+# Firebase
+firebase-admin>=6.0.0
+# LLM Integration
+ollama>=0.1.0
+# Utilities
+pydantic>=2.0.0
+python-multipart

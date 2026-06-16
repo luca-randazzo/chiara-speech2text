@@ -1,0 +1,1454 @@
+:root {
+    --background-light: #f5f6f8;
+    --background-dark: #0f1323;
+    --text-light: #1f2937;
+    /* slate-800 */
+    --text-dark: #e2e8f0;
+    /* slate-200 */
+    --button-bg-light: #ffffff;
+    --button-bg-dark: #1e293b;
+    /* slate-800 */
+    --button-border-light: #e5e7eb;
+    /* slate-200/80 */
+    --button-border-dark: #334155;
+    /* slate-700 */
+    --button-hover-bg-light: #f9fafb;
+    /* gray-50 */
+    --button-hover-bg-dark: #334155;
+    /* slate-700 */
+    --primary-color: #607AFB;
+    --primary-color-translucent: rgba(96, 122, 251, 0.1);
+    /* primary-color at 10% opacity */
+}
+
+body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+}
+
+.dark body {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    /* Stack on smaller screens */
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    /* height: 50vh; */
+    gap: 40px;
+}
+
+@media (min-width: 600px) {
+
+    /* sm breakpoint */
+    .container {
+        flex-direction: row;
+        /* Side-by-side on larger screens */
+    }
+}
+
+.username-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    /* Center */
+    gap: 0.5rem;
+    margin-top: 60px;
+    /*margin-bottom: -300px; // Pull it closer to the buttons below */
+    font-size: 1em;
+    width: 70%;
+}
+
+.training-word-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.training-word-audio-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    width: 90%;
+}
+
+.setting-input {
+    font-size: 1em;
+    /* Make font size relative to the container's 1.5em */
+    text-align: left;
+}
+
+.choice-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background-color: var(--button-bg-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 1000;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.dark .choice-button {
+    background-color: var(--button-bg-dark);
+    border-color: var(--button-border-dark);
+    color: var(--text-dark);
+}
+
+.choice-button:hover {
+    background-color: var(--button-hover-bg-light);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.dark .choice-button:hover {
+    background-color: var(--button-hover-bg-dark);
+}
+
+.choice-button.processing {
+    animation: pulse-processing 2s infinite;
+}
+
+@keyframes pulse-processing {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+.choice-button .icon {
+    font-size: 4rem;
+    /* ~text-9xl */
+    margin-bottom: -10px;
+    color: var(--primary-color);
+}
+
+/* Target the material symbol directly to ensure it scales */
+.choice-button .icon .material-symbols-outlined {
+    font-size: inherit;
+    /* Inherit the large size from the parent .icon div */
+}
+
+.settings-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.dark .settings-icon {
+    color: var(--text-dark);
+}
+
+.settings-icon:hover {
+    color: var(--primary-color);
+    transform: rotate(45deg);
+}
+
+.settings-icon .material-symbols-outlined {
+    font-size: 2rem;
+    /* ~text-3xl */
+}
+
+/* Settings Modal */
+.modal-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: var(--button-bg-light);
+    color: var(--text-light);
+    padding: 2rem 0;
+    /* No horizontal padding */
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+    width: 90%;
+    max-width: 1000px;
+    position: relative;
+}
+
+.dark .modal-content {
+    background-color: var(--button-bg-dark);
+    color: var(--text-dark);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0 1rem;
+    /* Add padding here */
+}
+
+.modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--text-light);
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.dark .modal-close {
+    color: var(--text-dark);
+}
+
+.modal-close:hover {
+    opacity: 1;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    /* Add padding here */
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--button-border-light);
+}
+
+.dark .setting-item {
+    border-bottom-color: var(--button-border-dark);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-input {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: 1rem;
+    /* Add some space between the label and the input */
+    flex-grow: 1;
+    /* Make the input fill the available space */
+}
+
+.dark .setting-input {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    border-color: var(--button-border-dark);
+}
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--primary-color);
+}
+
+input:checked+.slider:before {
+    transform: translateX(22px);
+}
+
+/* --- Trainer Page Styles --- */
+
+.back-icon {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 1000;
+}
+
+.dark .back-icon {
+    color: var(--text-dark);
+}
+
+.back-icon:hover {
+    color: var(--primary-color);
+    transform: translateX(-4px);
+}
+
+.back-icon .material-symbols-outlined {
+    font-size: 3rem;
+}
+
+.trainer-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+#setup-section,
+#training-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#training-section {
+    display: none;
+    /* Hidden by default, shown by JS */
+    text-align: center;
+}
+
+.words-list-container {
+    flex: 1;
+}
+
+.upload-container {
+    width: 300px;
+    flex-shrink: 0;
+    text-align: center;
+    background-color: var(--button-bg-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.dark .upload-container {
+    background-color: var(--button-bg-dark);
+    border-color: var(--button-border-dark);
+}
+
+.upload-instructions {
+    font-size: 0.875rem;
+    color: #6b7280;
+    /* gray-500 */
+    margin: 0.5rem 0;
+}
+
+.dark .upload-instructions {
+    color: #9ca3af;
+    /* gray-400 */
+}
+
+#words-list {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    background-color: var(--button-bg-light);
+    color: var(--text-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 0.5rem;
+    resize: vertical;
+}
+
+.dark #words-list {
+    background-color: var(--button-bg-dark);
+    color: var(--text-dark);
+    border-color: var(--button-border-dark);
+}
+
+.upload-container button {
+    margin-top: 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+#upload-feedback {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.words-and-upload-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.words-list-preview {
+    flex: 1;
+    min-width: 20%;
+    /* Prevent it from becoming too small */
+    max-width: 40%;
+}
+
+.words-list-preview label {
+    text-align: left;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.upload-secondary-container {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.upload-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.upload-secondary-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .upload-secondary-btn {
+    color: var(--text-dark);
+    border-color: var(--button-border-dark);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .upload-secondary-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.info-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.info-button:hover {
+    background-color: var(--button-border-dark);
+    /* A subtle hover effect */
+}
+
+.word-display-container {
+    margin: 0.5rem 0;
+    min-height: 2em;
+    width: 50%;
+}
+
+.current-word {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.mic-visualizer-container {
+    margin: 1rem auto;
+    height: 10%;
+    width: 50%;
+    max-width: 90%;
+    /* Ensure it fits on smaller screens */
+}
+
+#mic-visualizer {
+    /* Use the dark button background for contrast in both modes */
+    background-color: var(--button-bg-dark);
+    border: 1px solid var(--button-border-dark);
+    border-radius: 0.5rem;
+    padding: 4px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.record-progress-container {
+    height: 15px;
+    width: 80%;
+    margin: 0.5rem auto;
+    background-color: var(--button-border-dark);
+    border-radius: 2px;
+}
+
+.record-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #e91e63;
+    /* A contrasting color for recording progress */
+    border-radius: 2px;
+}
+
+.progress-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    background-color: var(--button-bg-dark);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    /* Controlled by JS */
+    background-color: var(--primary-color);
+    border-radius: 0 2px 2px 0;
+    transition: width 0.3s ease-in-out;
+}
+
+.controls {
+    margin-top: 2rem;
+}
+
+.play-pause-btn {
+    font-size: 5rem;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.dark .play-pause-btn {
+    color: var(--text-dark);
+}
+
+/* --- Data Table Styles (for folder selection) --- */
+.data-table {
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+}
+
+.data-table.dpo-table {
+    table-layout: fixed;
+}
+
+.data-table.dpo-table col:nth-child(1) {
+    width: 8%;
+}
+
+.data-table.dpo-table col:nth-child(2) {
+    width: 14%;
+}
+
+.data-table.dpo-table col:nth-child(3),
+.data-table.dpo-table col:nth-child(4) {
+    width: 39%;
+}
+
+.data-table th,
+.data-table td {
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid var(--button-border-light);
+    text-align: left;
+}
+
+.dark .data-table th,
+.dark .data-table td {
+    border-bottom-color: var(--button-border-dark);
+}
+
+.data-table th {
+    font-weight: 500;
+    background-color: var(--button-bg-light);
+}
+
+.dark .data-table th {
+    background-color: var(--button-bg-dark);
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--button-hover-bg-light);
+}
+
+.dark .data-table tbody tr:hover {
+    background-color: var(--button-hover-bg-dark);
+}
+
+/* --- Primary Button Styles --- */
+.button-primary {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    /* Center the button */
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#load-folders-btn {
+    position: sticky;
+    top: 1rem;
+    z-index: 100;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-primary:hover {
+    background-color: #4f67e0;
+    /* Slightly darker primary color */
+    transform: translateY(-2px);
+}
+
+/* --- Player Page Specific Styles --- */
+.audio-viewer-container {
+    width: 100%;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.audio-viewer-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.controls-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--background-dark);
+    /* Match body background */
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--button-border-dark);
+}
+
+.dark .controls-container {
+    background-color: var(--background-dark);
+    border-color: var(--button-border-dark);
+}
+
+.light .controls-container {
+    background-color: var(--background-light);
+    border-color: var(--button-border-light);
+}
+
+.speed-control,
+.start-from-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dpo-folder-loading-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dpo-spinner {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: dpo-spinner-spin 0.8s linear infinite;
+}
+
+@keyframes dpo-spinner-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.controls-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.start-from-control .setting-input {
+    width: 80px;
+}
+
+.data-table th {
+    text-align: center;
+    position: -webkit-sticky;
+    /* for Safari */
+    position: sticky;
+    top: 110px;
+    /* Adjust based on controls container height */
+    z-index: 5;
+}
+
+.data-table .id-cell {
+    text-align: center;
+    font-weight: 500;
+}
+
+.data-table .files-cell {
+    font-size: 0.7rem;
+}
+
+.data-table tr.playing {
+    background-color: #003c5a !important;
+    /* A distinct color for playing */
+}
+
+.data-table tr.last-played {
+    background-color: #00283c;
+    /* A slightly different color for last played */
+}
+
+.data-table tr.loading-error {
+    background-color: #FFB3B3 !important;
+}
+
+.data-table tr.loading-error:hover {
+    background-color: #FFB3B3 !important;
+}
+
+.transcript {
+    max-width: 600px;
+    white-space: pre-wrap;
+}
+
+.action-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.action-icon i {
+    font-size: inherit;
+}
+
+.delete-icon:hover {
+    color: #F44336;
+    /* Red for delete action */
+    opacity: 1;
+}
+
+.data-table tr.deleting {
+    animation: fade-out-row 0.5s ease-out forwards;
+}
+
+@keyframes fade-out-row {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+        /* Collapse the row height */
+        line-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* --- Transcriber Page Specific Styles --- */
+.status-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+    min-height: 1.5em;
+    /* Reserve space to prevent layout shift */
+}
+
+.dark .status-text {
+    color: var(--text-dark);
+}
+
+.status-text.recording {
+    color: #e91e63;
+    /* Use the same color as the recording progress bar */
+    animation: pulse-text 1.5s infinite;
+}
+
+@keyframes pulse-text {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.transcript-container {
+    margin-top: 0.2rem;
+    padding: 1rem;
+    width: 90%;
+    height: 10vh;
+    background-color: var(--button-bg-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 1rem;
+    text-align: left;
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+.dark .transcript-container {
+    background-color: var(--button-bg-dark);
+    border-color: var(--button-border-dark);
+}
+
+#transcript-table .model-cell {
+    font-weight: 500;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#transcript-table .play-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#transcript-table .transcript-cell {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    vertical-align: middle;
+}
+
+.highlight {
+    background-color: var(--primary-color-translucent);
+    color: #e91e63;
+    font-weight: bold;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    border-left: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+}
+
+/* --- Live Caption Page Specific Styles --- */
+.live-caption-page {
+    flex-direction: column;
+    width: min(960px, 92%);
+    margin: 4rem auto 2rem auto;
+    gap: 1.5rem;
+}
+
+.live-caption-header {
+    width: 100%;
+    text-align: left;
+}
+
+.live-caption-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--primary-color);
+}
+
+.live-caption-title h1 {
+    margin: 0;
+    color: inherit;
+    font-size: 2rem;
+}
+
+.live-caption-title .material-symbols-outlined {
+    font-size: 2.5rem;
+}
+
+.live-caption-subtitle {
+    margin: 0.5rem 0 0 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.live-caption-server {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+.live-caption-endpoints {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 0.75rem;
+}
+
+.live-caption-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.live-caption-stop:disabled,
+.choice-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+}
+
+.live-caption-status-row {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.live-caption-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--button-border-light);
+    background-color: var(--button-bg-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.dark .live-caption-chip {
+    border-color: var(--button-border-dark);
+    background-color: var(--button-bg-dark);
+}
+
+.live-caption-chip.connected {
+    color: #0f9d58;
+    border-color: rgba(15, 157, 88, 0.35);
+    background-color: rgba(15, 157, 88, 0.08);
+}
+
+.live-caption-panel {
+    width: 100%;
+    background-color: var(--button-bg-light);
+    border: 1px solid var(--button-border-light);
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px -18px rgb(0 0 0 / 0.35);
+    overflow: hidden;
+}
+
+.dark .live-caption-panel {
+    background-color: var(--button-bg-dark);
+    border-color: var(--button-border-dark);
+}
+
+.live-caption-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+}
+
+.live-caption-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--button-border-light);
+}
+
+.dark .live-caption-panel-header {
+    border-bottom-color: var(--button-border-dark);
+}
+
+.live-caption-panel-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.live-caption-clear-btn {
+    border: 1px solid var(--button-border-light);
+    background-color: transparent;
+    color: inherit;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+    font: inherit;
+}
+
+.dark .live-caption-clear-btn {
+    border-color: var(--button-border-dark);
+}
+
+.live-caption-transcript {
+    min-height: 280px;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding: 1.25rem;
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-size: 1.5rem;
+}
+
+/* Make "Folder processed?" checkboxes green when checked */
+.processed-checkbox {
+    width: 2rem;
+    height: 2rem;
+    transform: scale(1.15);
+    transform-origin: center;
+}
+
+.processed-checkbox:checked {
+    accent-color: green;
+}
+
+/* Make "Transcript correct?" checkboxes green when checked */
+.transcript-correct-checkbox {
+    width: 2rem;
+    height: 2rem;
+    transform: scale(1.15);
+    transform-origin: center;
+}
+
+.transcript-correct-checkbox:checked {
+    accent-color: green;
+}
+
+/* Mobile Portrait Mode Layout */
+@media (max-width: 600px) {
+    .live-caption-page {
+        width: 94%;
+        margin-top: 5.5rem;
+    }
+
+    .live-caption-endpoints,
+    .live-caption-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .live-caption-controls {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .live-caption-controls .choice-button {
+        width: 96px;
+        height: 96px;
+    }
+
+    .live-caption-panel-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .live-caption-transcript {
+        min-height: 220px;
+        font-size: 1.3rem;
+    }
+
+    .controls-container {
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+
+    .controls-container > * {
+        flex: 1 1 calc(50% - 0.75rem);
+        min-width: 0;
+    }
+
+    .controls-container .controls-inline {
+        flex: 1 1 100%;
+        gap: 0.5rem;
+    }
+
+    .controls-container .controls-inline .controls-chip {
+        flex: 1 1 0;
+    }
+
+    #play-all-btn {
+        flex: 1 1 100%;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .controls-container .cache-control {
+        flex: 1 1 100%;
+    }
+
+    .controls-container .controls-chip {
+        margin-right: 0 !important;
+        padding: 4px 6px !important;
+        font-size: 0.8rem !important;
+        min-height: 1.25rem !important;
+    }
+
+    /* Hide table headers on mobile */
+    .data-table thead {
+        display: none;
+    }
+
+    /* Transform table rows into flex containers */
+    .data-table tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background-color: var(--button-bg-light);
+    }
+
+    .dark .data-table tbody tr {
+        border-color: var(--button-border-dark);
+        background-color: var(--button-bg-dark);
+    }
+
+    /* Reset default table cell styling */
+    .data-table td {
+        border-bottom: none;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    /* ID cell - 20% width, top left */
+    .data-table .id-cell {
+        width: 20%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.25rem;
+        background-color: var(--background-light);
+        order: 1;
+    }
+
+    .dark .data-table .id-cell {
+        border-color: var(--button-border-dark);
+        background-color: var(--background-dark);
+    }
+
+    /* Files cell - 80% width, top right */
+    .data-table .files-cell {
+        width: 80%;
+        padding-left: 0.5rem;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.25rem;
+        background-color: var(--background-light);
+        order: 2;
+    }
+
+    .dark .data-table .files-cell {
+        border-color: var(--button-border-dark);
+        background-color: var(--background-dark);
+    }
+
+    /* Audio cell - 100% width */
+    .data-table .audio-cell {
+        width: 100%;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.25rem;
+        background-color: var(--background-light);
+        padding: 0.75rem;
+        order: 3;
+    }
+
+    .dark .data-table .audio-cell {
+        border-color: var(--button-border-dark);
+        background-color: var(--background-dark);
+    }
+
+    .data-table .audio-cell audio {
+        width: 100%;
+    }
+
+    /* Transcript cell - 100% width */
+    .data-table .transcript-cell {
+        width: 100%;
+        min-height: 4rem;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.25rem;
+        background-color: var(--background-light);
+        padding: 0.75rem;
+        order: 4;
+    }
+
+    .dark .data-table .transcript-cell {
+        border-color: var(--button-border-dark);
+        background-color: var(--background-dark);
+    }
+
+    /* Correct cell - 50% width, bottom left */
+    .data-table .correct-cell {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.25rem;
+        background-color: var(--background-light);
+        padding: 0.75rem;
+        order: 5;
+    }
+
+    .dark .data-table .correct-cell {
+        border-color: var(--button-border-dark);
+        background-color: var(--background-dark);
+    }
+
+    .data-table .correct-cell::before {
+        content: "Transcript correct? ";
+        margin-right: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* Actions cell - 50% width, bottom right */
+    .data-table .actions-cell {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--button-border-light);
+        border-radius: 0.25rem;
+        background-color: var(--background-light);
+        padding: 0.75rem;
+        order: 6;
+    }
+
+    .dark .data-table .actions-cell {
+        border-color: var(--button-border-dark);
+        background-color: var(--background-dark);
+    }
+
+    .data-table .actions-cell::before {
+        content: "Actions: ";
+        margin-right: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* Adjust hover effects for mobile */
+    .data-table tbody tr:hover {
+        background-color: var(--button-bg-light);
+    }
+
+    .dark .data-table tbody tr:hover {
+        background-color: var(--button-bg-dark);
+    }
+
+    /* Maintain playing/last-played row highlighting */
+    .data-table tr.playing {
+        background-color: #003c5a !important;
+    }
+
+    .data-table tr.last-played {
+        background-color: #00283c;
+    }
+
+
+
+    /* Folder Selection Page Mobile Layout */
+    /* Transform folder selection table into card-based layout */
+    #folders-table-container .data-table tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--button-border-dark);
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background-color: var(--button-bg-dark);
+        gap: 0.5rem;
+    }
+
+    /* Reset default table cell styling for folder selection */
+    #folders-table-container .data-table td {
+        border-bottom: none;
+        padding: 0.75rem;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--button-border-dark);
+        border-radius: 0.25rem;
+        background-color: var(--background-dark);
+        color: var(--text-dark);
+        font-size: 0.95rem;
+    }
+
+    /* Load checkbox - 100% width, first position */
+    #folders-table-container .data-table td:nth-child(1) {
+        width: 100%;
+        order: 1;
+        padding: 1rem;
+        font-weight: 600;
+    }
+
+    #folders-table-container .data-table td:nth-child(1)::before {
+        content: "Load? ";
+        margin-right: 0.5rem;
+        font-size: 1rem;
+    }
+
+    #folders-table-container .data-table td:nth-child(1) input[type="checkbox"] {
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+
+    /* Folder name - 100% width, second position */
+    #folders-table-container .data-table td:nth-child(2) {
+        width: 100%;
+        order: 4;
+        font-weight: 500;
+        padding: 1rem;
+        text-align: center;
+        word-break: break-word;
+    }
+
+    #folders-table-container .data-table td:nth-child(2)::before {
+        content: "Folder name: ";
+        margin-right: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* N audios - 50% width, left side */
+    #folders-table-container .data-table td:nth-child(3) {
+        width: calc(50% - 0.25rem);
+        order: 3;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    #folders-table-container .data-table td:nth-child(3)::before {
+        content: "Naudios";
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    /* Total audio duration - 50% width, right side */
+    #folders-table-container .data-table td:nth-child(4) {
+        width: calc(50% - 0.25rem);
+        order: 2;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    #folders-table-container .data-table td:nth-child(4)::before {
+        content: "Total audio duration";
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    /* Folder processed checkbox - 100% width, last position */
+    #folders-table-container .data-table td:nth-child(5) {
+        width: 100%;
+        order: 5;
+        padding: 1rem;
+        font-weight: 600;
+    }
+
+    #folders-table-container .data-table td:nth-child(5)::before {
+        content: "Folder processed? ";
+        margin-right: 0.5rem;
+        font-size: 1rem;
+    }
+
+    #folders-table-container .data-table td:nth-child(5) input[type="checkbox"] {
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+
+    /* Adjust button for mobile */
+    #load-folders-btn {
+        width: 90%;
+        margin: 1rem auto;
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+    }
+}

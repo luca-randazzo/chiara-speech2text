@@ -1,0 +1,26 @@
+[Unit]
+Description=Chiara Speech2Text Model Server
+After=network.target
+
+[Service]
+Type=simple
+User=lucar
+Group=lucar
+
+# Set the working directory to where the script is located
+WorkingDirectory=/home/lucar/Development/chiara-speech2text_private-v2/model-server
+
+# Use the Python executable from your virtual environment to run the script
+ExecStart=/home/lucar/Development/chiara-speech2text_private-v2/.stt/bin/python /home/lucar/Development/chiara-speech2text_private-v2/model-server/model-server.py --env-file /home/lucar/Development/chiara-speech2text_private-v2/envs/.env
+
+# Restart the service automatically if it crashes
+Restart=always
+# Wait 5 seconds before restarting
+RestartSec=5
+
+# Output logging (viewable via journalctl)
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

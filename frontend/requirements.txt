@@ -1,0 +1,6 @@
+# --- frontend
+google-cloud-storage
+google-auth
+flask==3.0.3
+requests>=2.28.0
+firebase-admin>=6.0.0
