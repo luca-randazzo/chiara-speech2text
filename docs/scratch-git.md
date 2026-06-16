@@ -14,13 +14,13 @@ Sepcifcially, this repo has been created as follows:
 -   Cloned private repo to a local machine
 
 -   In this local clone of the private repo:
-    - Added a remote (named `public`) which points to the public repo, using command:
+    - Added a remote (named `publicrepo`) which points to the public repo, using command:
 
-        `git remote add "public" https://github.com/luca-randazzo/chiara-speech2text.git`
+        `git remote add "publicrepo" https://github.com/luca-randazzo/chiara-speech2text.git`
 
 -   Once remote is created, changes can be pushed to it -when one wants- with:
 
-    `git push public main`
+    `git push publicrepo main`
 
 
 Remotes can be listed with: `git remote -v`
