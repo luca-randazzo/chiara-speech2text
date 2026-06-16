@@ -1,2 +1,2 @@
 # chiara-speech2text
-A speech2text system for users with atypical speech
+An Automatic Speech Recognition (ASR) and speech2text system for users with atypical speech
