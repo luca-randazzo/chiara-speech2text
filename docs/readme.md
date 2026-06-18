@@ -98,7 +98,7 @@ To install, use, deploy the system, see instructions in [readme-setup.md](readme
 # 4. Requirements
 - Some coding skills are required to install and use this system
 - A GPU is required for fast (<1s) inference (transcription). CPUs generate transcriptions within ~8s
-- ~8h of labeled data is required to start seeing acceptable transcrition performance (WER ~15)
+- ~10h of labeled data is required to start seeing acceptable transcrition performance (WER ~15)
 - The system currently requires paid-services for hosting (data and code)
     - Storage costs: https://firebase.google.com/pricing 
     - Hosting costs: https://cloud.google.com/run/pricing 
