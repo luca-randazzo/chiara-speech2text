@@ -74,7 +74,7 @@ These steps were followed:
 5. After ~1h of recorded data, the fine-tuned model was used to transcribe a 1st batch of available Whatsapp audio messages (which Chiara exchanged with Luca over previous years)
 6. Luca manually labeled available Whatsapp audios (i.e. listened to audios and edited the transcripts to ensure they matched)
 7. The edited data was used to fine-tune a new model
-9. Steps 6-7 were iteratively repeated till ~12h of labeled data (recordings+transcripts) was available. Upon this threshold the system was capable of reliably transcribing Chiara's speech with WER ~15
+9. Steps 6-7 were iteratively repeated till ~10h of labeled data (recordings+transcripts) was available. Upon this threshold the system was capable of reliably transcribing Chiara's speech with WER ~15
 
 ## Deployment
 An example of how modules can be deployed is shown in the diagram and table below.
