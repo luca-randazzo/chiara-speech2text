@@ -70,11 +70,11 @@ These steps were followed:
 2. Chiara recorded her speech corresponding to the inputs through `frontend` module.
     - Audios + corresponding text is stored on a firebase storage
 3. Luca cleaned audios (e.g. removed bad recordings) to ensure clean data was available for models training 
-4. A first model was fine-tuned using the labeled data (audios + text) recorded through the `frontend`
-5. After ~1h of recorded data, the fine-tuned model was used to transcribe a 1st batch of available Whatsapp audio messages (which Chiara exchanged with Luca over previous years)
-6. Luca manually labeled available Whatsapp audios (i.e. listened to audios and edited the transcripts to ensure they matched)
+4. After ~1h of available recorded data, a 1st model was fine-tuned using the labeled data (audios + text) recorded through the `frontend`
+5. The fine-tuned model was used to transcribe a batch of available Whatsapp audio messages (which Chiara exchanged with Luca over previous years)
+6. Luca manually labeled the batch used in (5) (i.e. listened to audios and edited the transcripts - to ensure they matched)
 7. The edited data was used to fine-tune a new model
-9. Steps 6-7 were iteratively repeated till ~10h of labeled data (recordings+transcripts) was available. Upon this threshold the system was capable of reliably transcribing Chiara's speech with WER ~15
+9. Steps 5-7 were iteratively repeated till ~10h of labeled data (recordings+transcripts) was available. Upon this threshold the system was capable of reliably transcribing Chiara's speech with WER ~15
 
 ## Deployment
 An example of how modules can be deployed is shown in the diagram and table below.
