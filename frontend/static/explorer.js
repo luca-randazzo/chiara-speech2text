@@ -988,12 +988,20 @@ function renderdata() {
 
         const ta = document.createElement("textarea");
         ta.className = "input-text transcript-textarea";
+        //ta.setAttribute("spellcheck", "true");
         ta.style.height = "100%";
         ta.style.flex = "1";
         ta.value = entry.reviewer_corrected_transcript == null ? "" : String(entry.reviewer_corrected_transcript);
         ta.addEventListener("change", () => {
           saveEntryField(index, { reviewer_corrected_transcript: ta.value }, ta);
         });
+
+        // Trigger Chrome's spell-check detection by briefly focusing the textarea
+        // This makes spell-check errors visible without user interaction
+        /* setTimeout(() => {
+          ta.focus();
+          ta.blur();
+        }, 100); */
 
         // Wrap textarea in a resize container with a custom touch handle
         const resizeWrap = document.createElement("div");
