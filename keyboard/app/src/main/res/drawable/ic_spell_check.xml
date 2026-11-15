@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <!-- Line 1 (White) -->
+  <path
+      android:fillColor="#FFFFFFFF"
+      android:pathData="M4,7h16v2H4V7z"/>
+  <!-- Line 2 (White) -->
+  <path
+      android:fillColor="#FFFFFFFF"
+      android:pathData="M4,11h16v2H4V11z"/>
+  <!-- Line 3 - Section 1 (White) -->
+  <path
+      android:fillColor="#FFFFFFFF"
+      android:pathData="M4,15h5v2H4V15z"/>
+  <!-- Line 3 - Section 2 (Red - Middle Section) -->
+  <path
+      android:fillColor="#FFFF0000"
+      android:pathData="M9,15h6v2H9V15z"/>
+  <!-- Line 3 - Section 3 (White) -->
+  <path
+      android:fillColor="#FFFFFFFF"
+      android:pathData="M15,15h5v2H15V15z"/>
+  <!-- Pen icon (Red - Slightly bigger and overlaid) -->
+  <path
+      android:fillColor="#FFFF0000"
+      android:pathData="M11,13.5l0.7,2.2l2.2,-0.7L11,13.5z M12.2,12.3l4.8,-4.8l1.7,1.7l-4.8,4.8L12.2,12.3z M19,7.5l-0.7,-0.7c-0.4,-0.4 -1,-0.4 -1.4,0l-0.6,0.6l2.1,2.1l0.6,-0.6C19.4,8.5 19.4,7.9 19,7.5z"/>
+</vector>

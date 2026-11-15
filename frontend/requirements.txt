@@ -1,0 +1,15 @@
+google-cloud-storage
+google-auth
+#flask==3.0.3
+flask
+#requests>=2.28.0
+requests
+#firebase-admin>=6.0.0
+firebase-admin
+#pyspellchecker>=0.7.0
+pyspellchecker
+#jiwer>=3.1.0,<4.0.0
+jiwer
+editdistance
+#protobuf>=5.29.6,<5.30.0 # Keep compatible with nemo-toolkit (~=5.29.5) and google-api-core (>=5.29.6)
+protobuf

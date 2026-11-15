@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chiara-speech2text — Explorer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/explorer.css" />
+</head>
+
+<body>
+  <script>
+    (function () {
+      const theme = localStorage.getItem("theme") || "dark";
+      if (theme === "dark") document.documentElement.classList.add("dark");
+    })();
+  </script>
+
+  <!-- Home button -->
+  <a href="/" class="home-icon" aria-label="Home" title="Home" style="position:fixed; top:1rem; right:4rem; z-index:1001; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background:rgba(255,255,255,0.05); text-decoration:none; color:inherit; transition:background 0.2s; cursor:pointer;">
+    <span class="material-symbols-outlined" style="font-size:24px;">home</span>
+  </a>
+
+  <a href="#" class="settings-icon" aria-label="Open settings" title="Settings">
+    <span class="material-symbols-outlined">settings</span>
+  </a>
+
+  <div id="settings-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="settings-heading">
+      <button class="modal-close" aria-label="Close settings">&times;</button>
+      <h2 id="settings-heading">Settings</h2>
+      <div class="setting-item">
+        <span>Theme</span>
+        <label class="switch" title="Toggle dark / bright mode">
+          <input type="checkbox" id="dark-mode-switch" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <span>Mode</span>
+        <span id="theme-mode-label" class="setting-input">Dark</span>
+      </div>
+      <div class="setting-item">
+        <span>Admin mode</span>
+        <label class="switch" title="Enable admin mode to edit JSON files">
+          <input type="checkbox" id="admin-mode-switch" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <span>Current mode</span>
+        <span id="admin-mode-label" class="setting-input">User</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="generate-all-report-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="generate-all-report-heading">
+      <button class="modal-close" aria-label="Close report">&times;</button>
+      <h2 id="generate-all-report-heading">"Generate all" report</h2>
+      <div style="padding: 0 1rem; line-height: 1.6; text-align: left;">
+        <p>The "Generate all" action has completed. Below is a summary of the results:</p>
+        <p id="generate-all-report-success">0 entries transcribed successfully.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="audio-editor-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content audio-editor-modal-content" role="dialog" aria-modal="true" aria-labelledby="audio-editor-heading">
+      <button class="modal-close" id="audio-editor-close" aria-label="Close audio editor">&times;</button>
+      <h2 id="audio-editor-heading">Trim audio</h2>
+      <div class="audio-editor-body">
+        <div class="audio-editor-meta" id="audio-editor-meta"></div>
+        <div class="audio-editor-waveform-wrap">
+          <canvas id="audio-editor-waveform" width="800" height="140" aria-label="Audio waveform"></canvas>
+          <canvas id="audio-editor-spectrogram" width="800" height="250" aria-label="Audio spectrogram" style="display: block; margin-top: 4px;"></canvas>
+          <div class="audio-editor-region" id="audio-editor-region" aria-hidden="true"></div>
+          <div class="audio-editor-handle" id="audio-editor-handle-start" data-handle="start" title="Start"></div>
+          <div class="audio-editor-handle" id="audio-editor-handle-end" data-handle="end" title="End"></div>
+          <div class="audio-editor-playhead" id="audio-editor-playhead" aria-hidden="true"></div>
+          <div class="audio-editor-waveform-loading" id="audio-editor-waveform-loading" hidden>
+            <div class="spinner"></div>
+          </div>
+        </div>
+        <div class="audio-editor-times">
+          <span id="audio-editor-start-label">0.00s</span>
+          <span id="audio-editor-selection-label">Selection: 0.00s</span>
+          <span id="audio-editor-end-label">0.00s</span>
+        </div>
+        <div class="audio-editor-controls">
+          <button type="button" class="btn-small" id="audio-editor-play-btn" title="Play selection">
+            <span class="material-symbols-outlined" id="audio-editor-play-icon">play_arrow</span>
+            <span id="audio-editor-play-text">Play</span>
+          </button>
+          <div class="audio-editor-speed-group" id="audio-editor-speed-group" title="Playback speed">
+            <button type="button" class="btn-small audio-editor-speed-btn active" data-rate="1">1×</button>
+            <button type="button" class="btn-small audio-editor-speed-btn" data-rate="1.5">1.5×</button>
+            <button type="button" class="btn-small audio-editor-speed-btn" data-rate="2">2×</button>
+            <button type="button" class="btn-small audio-editor-speed-btn" data-rate="2.5">2.5×</button>
+            <button type="button" class="btn-small audio-editor-speed-btn" data-rate="3">3×</button>
+          </div>
+          <button type="button" class="btn-small" id="audio-editor-reset-btn" title="Reset trim handles">
+            <span class="material-symbols-outlined">restart_alt</span>
+            <span>Reset</span>
+          </button>
+          <button type="button" class="btn-small btn-primary" id="audio-editor-apply-btn" title="Apply trim and save">
+            <span class="material-symbols-outlined">content_cut</span>
+            <span>Apply trim</span>
+          </button>
+        </div>
+        <div class="audio-editor-status" id="audio-editor-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile sidebar overlay (for closing sidebar on small screens) -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <div class="explorer-layout">
+    <aside class="explorer-sidebar">
+      <div class="sidebar-header">
+        <span class="material-symbols-outlined sidebar-header-icon">folder</span>
+        <span class="sidebar-header-title" id="sidebar-header-title">Local Explorer</span>
+      </div>
+
+      <div class="sidebar-subheader" id="sidebar-subheader" style="display:none;">
+        <div class="sidebar-root" id="sidebar-root">EXPLORER_LOCAL_ROOT not set</div>
+      </div>
+
+      <div class="sidebar-card" id="sidebar-root-json">
+        <div class="sidebar-card-title">JSON files</div>
+        <div class="sidebar-card-content" id="root-json-list"></div>
+      </div>
+
+      <div class="folder-list" id="folder-list">
+        <div class="explorer-loading" id="sidebar-loading">
+          <div class="spinner"></div>
+          <span>Loading…</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="explorer-main">
+      <section class="entries-panel">
+        <div class="entries-header">
+          <div class="entries-header-left">
+            <h1 class="entries-title" id="entries-title">
+              <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu" title="Toggle menu">
+                <span class="material-symbols-outlined">menu</span>
+              </button>
+              <span class="material-symbols-outlined">folder_open</span>
+              <span class="entries-title-text">
+                <span id="current-folder-label">Curate - Overview</span>
+                <span id="processed-indicator" class="processed-indicator" hidden>
+                  <span class="processed-indicator-label">Processed?:</span>
+                  <span id="processed-icon" class="material-symbols-outlined processed-indicator-icon"></span>
+                </span>
+              </span>
+            </h1>
+            <button class="folder-view-close" id="close-folder-view" type="button" title="Return to overview" aria-label="Return to overview" hidden>
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="entries-subtitle" id="data-subtitle"></div>
+          </div>
+        </div>
+
+        <div class="sticky-stats" id="sticky-stats" style="display:none;">
+          <button class="stats-toggle-btn" id="stats-toggle-btn" type="button" aria-expanded="true" aria-controls="stats-row" aria-label="Collapse controls" title="Collapse controls">
+            <span class="material-symbols-outlined" id="stats-toggle-icon">keyboard_arrow_up</span>
+          </button>
+          <div class="stats-row" id="stats-row">
+
+            <div class="stat playback-stat">
+              <div class="stat-label">Playback controls</div>
+              <div class="playback-controls-stack" style="display:flex; flex-direction:column; gap:0.75rem; align-items:flex-start;">
+                <div class="speed-controls" id="speed-controls"></div>
+                <div class="play-all-controls" style="display:flex; gap:0.75rem; align-items:flex-end; flex-wrap:wrap;">
+                  <button class="btn-small" id="play-all-btn" type="button">Play all</button>
+                  <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                    <label for="play-all-start-index" style="font-size:0.7rem; color: var(--text-muted, #8b8fa8); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Start playing from</label>
+                    <input type="number" id="play-all-start-index" class="num-input" min="1" step="1" value="1" style="width: 96px;" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filter controls -->
+            <div class="stat stat-grow" id="stat-filters" style="display:flex; flex-direction:column;">
+              <div class="stat-label">Filters</div>
+              <div style="display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap; margin-top: 0.4rem;">
+                
+                <div>
+                  <div style="font-size: 0.7rem; opacity: 0.7; margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">user_is_validated</div>
+                  <div class="filter-radio-group" id="filter-validated-controls">
+                    <label class="filter-radio active" data-value="all">
+                      <input type="radio" name="filter-validated" value="all" checked />
+                      <span>All</span>
+                    </label>
+                    <label class="filter-radio" data-value="true">
+                      <input type="radio" name="filter-validated" value="true" />
+                      <span>true</span>
+                    </label>
+                    <label class="filter-radio" data-value="false">
+                      <input type="radio" name="filter-validated" value="false" />
+                      <span>false</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-size: 0.7rem; opacity: 0.7; margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">reviewer_is_reviewed</div>
+                  <div class="filter-radio-group" id="filter-reviewed-controls">
+                    <label class="filter-radio active" data-value="all">
+                      <input type="radio" name="filter-reviewed" value="all" checked />
+                      <span>All</span>
+                    </label>
+                    <label class="filter-radio" data-value="true">
+                      <input type="radio" name="filter-reviewed" value="true" />
+                      <span>true</span>
+                    </label>
+                    <label class="filter-radio" data-value="false">
+                      <input type="radio" name="filter-reviewed" value="false" />
+                      <span>false</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-size: 0.7rem; opacity: 0.7; margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">inference_confidence</div>
+                  <div class="input-row" style="display: flex; gap: 8px;">
+                    <div class="input-group" style="width: 95px; display: flex; flex-direction: column; gap: 4px;">
+                      <label for="confidence-min" style="font-size: 0.7rem; color: var(--text-muted, #8b8fa8); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Min</label>
+                      <input type="number" id="confidence-min" class="num-input" min="0" max="100" step="0.01" value="0" placeholder="Min" />
+                    </div>
+                    <div class="input-group" style="width: 95px; display: flex; flex-direction: column; gap: 4px;">
+                      <label for="confidence-max" style="font-size: 0.7rem; color: var(--text-muted, #8b8fa8); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Max</label>
+                      <input type="number" id="confidence-max" class="num-input" min="0" max="100" step="0.01" value="100" placeholder="Max" />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-size: 0.7rem; opacity: 0.7; margin-bottom: 4px; text-transform: uppercase; font-weight: 600;">Showing</div>
+                  <div class="stat-value" id="filter-count-label" style="font-size:0.85rem; margin:0; padding: 4px 0;">–</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="stats-side-stack">
+              <div class="stat" id="stat-json-files" style="display:none;">
+                <div class="stat-label">JSON files</div>
+                <div class="json-files-controls" id="json-files-controls"></div>
+              </div>
+              <div class="stat" id="stat-generate-all">
+                <div class="stat-label">Actions</div>
+                <div class="speed-controls">
+                  <div class="input-group" style="width: 82px; display: flex; flex-direction: column; gap: 4px;">
+                    <label for="generate-all-start-index" style="font-size: 0.7rem; color: var(--text-muted, #8b8fa8); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Start generating from</label>
+                    <input type="number" id="generate-all-start-index" class="num-input" min="1" step="1" value="1" style="width: 64px;" />
+                  </div>
+                  <button class="btn-small" id="spellcheck-all-btn" title="Spellcheck all entries">
+                    <span class="material-symbols-outlined" id="spellcheck-all-icon">spellcheck</span>
+                    <span class="spinner hidden" id="spellcheck-all-spinner" style="display:none;"></span>
+                    <span id="spellcheck-all-txt">Spellcheck all</span>
+                  </button>
+                  <button class="btn-small" id="generate-all-btn">
+                    <span class="material-symbols-outlined" id="generate-all-icon">auto_awesome</span>
+                    <span class="spinner hidden" id="generate-all-spinner" style="display:none;"></span>
+                    <span id="generate-all-txt">Generate all</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="entries-body" id="entries-body">
+          <section class="curate-overview" id="curate-overview" aria-labelledby="curate-overview-title">
+            <header class="curate-overview-header">
+              <div class="curate-overview-heading">
+                <span class="material-symbols-outlined" aria-hidden="true">donut_large</span>
+                <div>
+                  <h2 id="curate-overview-title">Progress</h2>
+                  <p>Processed folders and reviewed audio</p>
+                </div>
+              </div>
+              <div class="curate-overview-actions">
+                <span class="curate-last-synced" id="curate-last-synced">Last synced on: Never</span>
+                <span class="curate-cache-status" id="curate-cache-status"></span>
+                <button type="button" class="btn-small curate-sync-btn" id="curate-sync-btn" title="Scan folders and update cached statistics">
+                  <span class="material-symbols-outlined" id="curate-sync-icon">sync</span>
+                  <span id="curate-sync-label">Sync</span>
+                </button>
+              </div>
+            </header>
+            <div class="curate-overview-charts">
+              <article class="curate-chart" aria-labelledby="processed-chart-title">
+                <h3 id="processed-chart-title">Folders processed</h3>
+                <div class="curate-chart-visual">
+                  <svg class="curate-chart-doughnut" id="processed-chart" role="img" aria-label="Processed folders"></svg>
+                  <div class="curate-chart-center">
+                    <span class="curate-chart-value" id="processed-chart-value">—</span>
+                    <span class="curate-chart-center-label">processed</span>
+                  </div>
+                </div>
+                <p class="curate-chart-total">
+                  <span class="spinner curate-chart-spinner" id="processed-chart-spinner" aria-hidden="true"></span>
+                  <span id="processed-chart-total">Loading folder counts…</span>
+                </p>
+                <div class="curate-chart-legend">
+                  <span><i class="curate-chart-swatch curate-chart-swatch--done"></i>Processed</span>
+                  <span><i class="curate-chart-swatch curate-chart-swatch--remaining"></i>Remaining</span>
+                </div>
+              </article>
+              <article class="curate-chart" aria-labelledby="reviewed-chart-title">
+                <h3 id="reviewed-chart-title">Audios reviewed</h3>
+                <div class="curate-chart-visual">
+                  <svg class="curate-chart-doughnut" id="reviewed-chart" role="img" aria-label="Reviewed audios"></svg>
+                  <div class="curate-chart-center">
+                    <span class="curate-chart-value" id="reviewed-chart-value">—</span>
+                    <span class="curate-chart-center-label">reviewed</span>
+                  </div>
+                </div>
+                <p class="curate-chart-total">
+                  <span class="spinner curate-chart-spinner" id="reviewed-chart-spinner" aria-hidden="true"></span>
+                  <span id="reviewed-chart-total">Loading audio counts…</span>
+                </p>
+                <div class="curate-chart-legend">
+                  <span><i class="curate-chart-swatch curate-chart-swatch--reviewed"></i>Reviewed</span>
+                  <span><i class="curate-chart-swatch curate-chart-swatch--remaining"></i>Remaining</span>
+                </div>
+                <p class="curate-reviewed-duration" id="reviewed-duration-total">Loading reviewed hours…</p>
+              </article>
+            </div>
+            <p class="curate-overview-error" id="curate-overview-error" role="status" hidden></p>
+          </section>
+          <div class="explorer-empty" id="data-empty" style="display:none;">
+            <span class="material-symbols-outlined empty-icon">inbox</span>
+            <p>No data.</p>
+          </div>
+          <div class="explorer-loading" id="data-loading" style="display:none;">
+            <div class="spinner"></div>
+            <span>Loading data…</span>
+          </div>
+          <div class="entries-list" id="data-list"></div>
+
+          <div class="explorer-loading" id="more-entries-loading" style="display:none; margin: 2rem 0;">
+            <div class="spinner"></div>
+            <span>Loading more entries…</span>
+          </div>
+
+          <div class="folder-actions" id="folder-actions" style="display:none;">
+            <button class="btn-primary" id="mark-processed-btn">Set 'is_processed'=true for this folder</button>
+            <button class="btn-primary" id="set-reviewed-all-btn">Set is_reviewed=true for all entries</button>
+            <p id="folder-actions-message" style="display:none; color: var(--text-muted, #8b8fa8); font-style: italic; text-align: center; margin: 0;">Remove the visualization filters to see available folders actions...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mobile JSON viewer backdrop -->
+      <div class="json-modal-backdrop" id="json-modal-backdrop"></div>
+
+      <section class="viewer-panel" id="viewer-panel" style="display:none;">
+        <div class="viewer-header">
+          <button class="viewer-close-btn" id="viewer-close-btn" title="Close viewer">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+          <span class="viewer-filename" id="viewer-filename"></span>
+          <span class="viewer-size" id="viewer-size"></span>
+        </div>
+        <div class="viewer-toolbar">
+          <button class="viewer-tool-btn viewer-tool-text" id="viewer-wrap-btn" title="Toggle word wrap">
+            <span class="material-symbols-outlined">wrap_text</span>
+            <span>Wrap</span>
+          </button>
+          <button class="viewer-tool-btn viewer-tool-text" id="viewer-copy-btn" title="Copy content">
+            <span class="material-symbols-outlined">content_copy</span>
+            <span>Copy</span>
+          </button>
+          <button class="viewer-tool-btn viewer-tool-text" id="viewer-save-btn" title="Save JSON" style="display:none;">
+            <span class="material-symbols-outlined">save</span>
+            <span>Save</span>
+          </button>
+          <span class="viewer-line-count viewer-tool-text" id="viewer-line-count"></span>
+        </div>
+        <div class="viewer-content-wrap" id="viewer-content-wrap">
+          <div class="viewer-loading" id="viewer-loading">
+            <div class="spinner"></div>
+            <span>Loading file…</span>
+          </div>
+          <pre class="viewer-pre" id="viewer-pre" style="display:none;"></pre>
+          <textarea id="viewer-textarea" class="viewer-textarea" style="display:none;"></textarea>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/json-viewer.js" defer></script>
+  <script src="/static/audio-editor.js" defer></script>
+  <script src="/static/explorer.js" defer></script>
+</body>
+
+</html>

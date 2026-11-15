@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "chiara-speech2text_schema-folders",
+  "version": "1.2.0_20261003",
+  "description": "Schema to keep track of folder properties and cached review statistics in folders.json",
+  "type": "object",
+  "oneOf": [
+    {
+      "required": [
+        "folder_name",
+        "is_processed",
+        "n_audios",
+        "audios_duration",
+        "%_validated",
+        "stats_computed"
+      ]
+    },
+    {
+      "required": ["_metadata", "last_synced_at"],
+      "properties": {
+        "_metadata": { "const": true }
+      }
+    }
+  ],
+  "properties": {
+    "folder_name": {
+      "type": "string",
+      "description": "Name of the folder"
+    },
+    "is_processed": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if the folder is fully reviewed by a reviewer"
+    },
+    "n_audios": {
+      "type": "number",
+      "format": "integer",
+      "default": 0,
+      "description": "Number of audios in the folder"
+    },
+    "n_audios_reviewed": {
+      "type": "number",
+      "format": "integer",
+      "default": 0,
+      "description": "Number of audios marked reviewer_is_reviewed in the folder"
+    },
+    "audios_duration": {
+      "type": "number",
+      "format": "float",
+      "default": 0,
+      "description": "Total duration of the audios in the folder in seconds"
+    },
+    "%_validated": {
+      "type": "number",
+      "format": "float",
+      "default": 0,
+      "description": "Percentage of user-validated transcripts wrt total number"
+    },
+    "stats_computed": {
+      "type": "boolean",
+      "default": false,
+      "description": "True when folder statistics, including reviewed-audio count, have been computed and cached"
+    },
+    "last_synced_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp for the latest full Curate statistics sync"
+    },
+    "_metadata": {
+      "type": "boolean",
+      "const": true,
+      "description": "Marks the sync timestamp record when folders.json has no folder records"
+    }
+  },
+  "additionalProperties": false
+}

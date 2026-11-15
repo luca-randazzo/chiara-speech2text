@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Large keyboard icon (scaled from ic_keyboard.xml, viewportWidth 24 -> 108) -->
+    <!-- Scale factor: 108/24 = 4.5 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M90,22.5H18C13.55,22.5 10,26.05 10,30.5L10,76.5c0,4.95 4,9 9,9H90c4.95,0 9,-4.05 9,-9V30.5C99,26.05 95.45,22.5 90,22.5zM49.5,36h9v9h-9V36zM49.5,49.5h9v9h-9V49.5zM36,36h9v9H36V36zM36,49.5h9v9H36V49.5zM31.5,58.5H22.5v-9h9V58.5zM31.5,45H22.5v-9h9V45zM72,76.5H36v-9h36V76.5zM72,58.5h-9v-9h9V58.5zM72,45h-9v-9h9V45zM85.5,58.5h-9v-9h9V58.5zM85.5,45h-9v-9h9V45z"/>
+    
+    <!-- Red circle background for microphone -->
+    <path
+        android:fillColor="#FF5252"
+        android:pathData="M85,85m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+    
+    <!-- Microphone icon (scaled larger, positioned in bottom-right corner) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M85,79c1.1,0 2,-0.9 2,-2V72c0,-1.1 -0.9,-2 -2,-2s-2,0.9 -2,2v5C83,78.1 83.9,79 85,79zM88.5,78c0,1.66 -1.34,3 -3,3s-3,-1.34 -3,-3h-1.5c0,2.76 2.24,5 5,5s5,-2.24 5,-5H88.5z" />
+</vector>

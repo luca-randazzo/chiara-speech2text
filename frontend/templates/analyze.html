@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chiara-speech2text — Analyze</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/static/main.css" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/explorer.css" />
+  <link rel="stylesheet" href="/static/analyze.css" />
+  <link rel="stylesheet" href="/static/word-accuracy-analyzer.css" />
+</head>
+
+<body>
+  <script>
+    (function () {
+      const theme = localStorage.getItem("theme") || "dark";
+      if (theme === "dark") document.documentElement.classList.add("dark");
+    })();
+  </script>
+
+
+
+  <!-- Home button -->
+  <a href="/" class="home-icon" aria-label="Home" title="Home" style="position:fixed; top:1rem; right:4rem; z-index:1001; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background:rgba(255,255,255,0.05); text-decoration:none; color:inherit; transition:background 0.2s; cursor:pointer;">
+    <span class="material-symbols-outlined" style="font-size:24px;">home</span>
+  </a>
+
+  <a href="#" class="settings-icon" aria-label="Open settings" title="Settings">
+    <span class="material-symbols-outlined">settings</span>
+  </a>
+
+  <div id="settings-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="settings-heading">
+      <button class="modal-close" aria-label="Close settings">&times;</button>
+      <h2 id="settings-heading">Settings</h2>
+      <div class="setting-item">
+        <span>Theme</span>
+        <label class="switch" title="Toggle dark / bright mode">
+          <input type="checkbox" id="dark-mode-switch" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <span>Mode</span>
+        <span id="theme-mode-label" class="setting-input">Dark</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="analyze-layout">
+    <div class="analyze-sidebar-overlay" id="analyze-sidebar-overlay"></div>
+    <aside class="analyze-sidebar" id="analyze-sidebar" aria-hidden="false">
+      <div class="sidebar-header">
+        <span class="material-symbols-outlined sidebar-header-icon">timeline</span>
+        <span class="sidebar-header-title">Timeline</span>
+      </div>
+
+
+      <div class="timeline-panel">
+        <div class="sidebar-card sidebar-card--timeline">
+          <div class="sidebar-card-title timeline-title">
+            <span>% validated over time</span>
+            <button class="timeline-info-button" type="button" aria-label="Timeline information" aria-describedby="timeline-info-tooltip">
+              <span class="material-symbols-outlined" aria-hidden="true">info</span>
+            </button>
+          </div>
+          <div class="sidebar-card-chart">
+            <div class="timeline-loading" id="timeline-loading">
+              <div class="spinner"></div>
+              <span>Loading timeline…</span>
+            </div>
+
+            <div class="timeline-error" id="timeline-error" hidden></div>
+
+            <div class="timeline-empty" id="timeline-empty" hidden>
+              <span class="material-symbols-outlined empty-icon">event_busy</span>
+              <p>No timeline events found.</p>
+            </div>
+
+            <div class="chart-wrapper" id="chart-wrapper" hidden>
+              <svg id="timeline-plot" class="timeline-plot" role="img"
+                aria-label="Vertical timeline of % validated over time"></svg>
+              <div id="chart-tooltip" class="chart-tooltip" hidden></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="analyze-main" id="analyze-main">
+      <button class="analyze-timeline-toggle" id="analyze-timeline-toggle" type="button"
+        aria-label="Open timeline" aria-controls="analyze-sidebar" aria-expanded="false" title="Open timeline">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        <span>Timeline</span>
+      </button>
+
+      <section class="analyze-placeholder" id="analyze-placeholder">
+        <div class="analyze-placeholder-loading" id="analyze-placeholder-loading" aria-live="polite">
+          <div class="spinner analyze-placeholder-spinner" aria-hidden="true"></div>
+          <span>Loading statistics…</span>
+        </div>
+        <div class="analyze-placeholder-idle" id="analyze-placeholder-idle">
+          <span class="material-symbols-outlined placeholder-icon">insights</span>
+          <h1>Performance visualization</h1>
+          <p>Click a point on the timeline to view folder statistics.</p>
+        </div>
+      </section>
+
+      <div class="analyze-workspace" id="analyze-workspace" hidden>
+        <section class="folder-stats-panel" id="folder-stats-panel">
+          <button class="folder-stats-close-btn" id="folder-stats-close-btn" type="button"
+            title="Close statistics" aria-label="Close statistics">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+
+          <header class="folder-stats-header">
+            <span class="material-symbols-outlined folder-stats-header-icon">folder</span>
+            <div class="folder-stats-header-text">
+              <h2 class="folder-stats-title" id="folder-stats-title"></h2>
+              <p class="folder-stats-subtitle" id="folder-stats-subtitle"></p>
+            </div>
+          </header>
+
+          <div class="folder-stats-loading" id="folder-stats-loading">
+            <div class="spinner"></div>
+            <span>Loading folder statistics…</span>
+          </div>
+
+          <div class="folder-stats-error" id="folder-stats-error" hidden></div>
+
+          <div class="folder-stats-content" id="folder-stats-content" hidden>
+            <div class="folder-stats-chart-wrap">
+              <svg id="folder-stats-doughnut" class="folder-stats-doughnut" role="img"
+                aria-label="Validated audios versus total"></svg>
+              <div class="folder-stats-chart-center" id="folder-stats-chart-center"></div>
+            </div>
+
+            <div class="folder-stats-legend" id="folder-stats-legend" aria-hidden="true">
+              <span class="folder-stats-legend-item">
+                <span class="folder-stats-legend-swatch" id="folder-stats-legend-validated"></span>
+                <span id="folder-stats-legend-validated-label">Validated</span>
+              </span>
+              <span class="folder-stats-legend-item">
+                <span class="folder-stats-legend-swatch folder-stats-legend-swatch--remainder"></span>
+                <span id="folder-stats-legend-remainder-label">Not validated</span>
+              </span>
+            </div>
+
+            <dl class="folder-stats-metrics">
+              <div class="folder-stats-metric">
+                <dt>Validated</dt>
+                <dd id="folder-stats-validated"></dd>
+              </div>
+              <div class="folder-stats-metric">
+                <dt>Total audios</dt>
+                <dd id="folder-stats-total"></dd>
+              </div>
+              <div class="folder-stats-metric">
+                <dt>Duration</dt>
+                <dd id="folder-stats-duration"></dd>
+              </div>
+              <div class="folder-stats-metric">
+                <dt>Processed</dt>
+                <dd id="folder-stats-processed"></dd>
+              </div>
+            </dl>
+
+            <div class="folder-stats-models">
+              <div class="folder-stats-models-actions">
+                <div class="folder-stats-vocab-label">UNIQUE WORDS INSIDE INFERENCE-GENERATED TRANSCRIPTS</div>
+                <div class="folder-stats-vocab-item folder-stats-model-item">
+                  <button type="button" id="folder-stats-vocab-btn" class="folder-stats-model-btn" title="Show unique words for this folder" hidden>
+                    <span class="material-symbols-outlined" aria-hidden="true">insights</span>
+                    <span class="folder-stats-vocab-btn-label">Unique words</span>
+                  </button>
+                </div>
+              </div>
+              <h3 class="folder-stats-models-title">MODEL PERFORMANCE (REQUIRES REVIEWER'S GENERATED GROUND-TRUTHS)</h3>
+              <ul class="folder-stats-models-list" id="folder-stats-models-list"></ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="decoding-panel" id="decoding-panel">
+          <div class="decoding-panel-placeholder" id="decoding-panel-placeholder">
+            <div class="decoding-vocabulary" id="decoding-vocabulary">
+              <div class="decoding-vocabulary-header">
+                <div>
+                  <h3 class="decoding-vocabulary-title">Unique words in inference transcripts</h3>
+                  <span class="decoding-vocabulary-count" id="decoding-vocabulary-count"></span>
+                </div>
+              </div>
+
+              <div class="decoding-vocabulary-plot" id="decoding-vocabulary-plot" hidden>
+                <div class="decoding-vocabulary-plot-header">
+                  <span class="material-symbols-outlined">scatter_plot</span>
+                  <div>
+                    <h3>Word validation / review quadrant</h3>
+                    <p>Each point is a unique word; size encodes count.</p>
+                  </div>
+                </div>
+                <div class="decoding-vocabulary-plot-wrapper">
+                  <svg id="decoding-vocabulary-quadrant-plot" class="decoding-vocabulary-quadrant-plot" role="img" aria-label="Quadrant plot for unique words"></svg>
+                  <div id="decoding-vocabulary-plot-tooltip" class="chart-tooltip" hidden></div>
+                </div>
+              </div>
+
+              <div class="decoding-vocabulary-loading" id="decoding-vocabulary-loading" hidden>
+                <div class="spinner"></div>
+                <span>Loading vocabulary…</span>
+              </div>
+              <div class="decoding-vocabulary-table-wrap" id="decoding-vocabulary-table-wrap" hidden>
+                <table class="decoding-vocabulary-table">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="sortable" data-sort="word">Word<span class="sort-icon"></span></th>
+                      <th scope="col" class="sortable" data-sort="count">Count<span class="sort-icon"></span></th>
+                      <th scope="col" class="sortable" data-sort="user_is_validated">BELONG TO TRANSCRIPT(S) WITH 'user_is_validated'=true<span class="sort-icon"></span></th>
+                      <th scope="col" class="sortable" data-sort="reviewer_is_reviewed">BELONG TO TRANSCRIPT(S) WITH 'reviewer_is_reviewed'=true<span class="sort-icon"></span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="decoding-vocabulary-table-body"></tbody>
+                </table>
+              </div>
+              <p class="decoding-vocabulary-empty" id="decoding-vocabulary-empty">
+                Select a point on the timeline to see unique words for that folder.
+              </p>
+            </div>
+          </div>
+          <div class="decoding-panel-loading" id="decoding-panel-loading" hidden>
+            <div class="spinner"></div>
+            <span>Computing decoding metrics…</span>
+          </div>
+          <div class="decoding-panel-error" id="decoding-panel-error" hidden></div>
+          <div class="decoding-panel-analyzer" id="decoding-panel-analyzer" hidden></div>
+        </section>
+      </div>
+
+      <section class="viewer-panel" id="viewer-panel" style="display:none;">
+        <div class="viewer-header">
+          <button class="viewer-close-btn" id="viewer-close-btn" title="Close viewer" aria-label="Close viewer">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+          <span class="viewer-filename" id="viewer-filename"></span>
+          <span class="viewer-size" id="viewer-size"></span>
+        </div>
+        <div class="viewer-toolbar">
+          <button class="viewer-tool-btn viewer-tool-text" id="viewer-wrap-btn" title="Toggle word wrap">
+            <span class="material-symbols-outlined">wrap_text</span>
+            <span>Wrap</span>
+          </button>
+          <button class="viewer-tool-btn viewer-tool-text" id="viewer-copy-btn" title="Copy content">
+            <span class="material-symbols-outlined">content_copy</span>
+            <span>Copy</span>
+          </button>
+          <span class="viewer-line-count viewer-tool-text" id="viewer-line-count"></span>
+        </div>
+        <div class="viewer-content-wrap" id="viewer-content-wrap">
+          <div class="viewer-loading" id="viewer-loading">
+            <div class="spinner"></div>
+            <span>Loading file…</span>
+          </div>
+          <pre class="viewer-pre" id="viewer-pre" style="display:none;"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <span id="timeline-info-tooltip" class="timeline-info-tooltip" role="tooltip">
+    This timeline shows, for each day, % of entries validated by the user. The 'user_is_validated' field was tracked only from 2026.06.01 onwards - hence previous data cannot be shown here
+  </span>
+
+  <div id="word-entries-modal" class="modal-overlay word-entries-modal" aria-hidden="true" hidden>
+    <div class="modal-content word-entries-modal-content" role="dialog" aria-modal="true" aria-labelledby="word-entries-modal-title">
+      <div class="word-entries-modal-header">
+        <h2 id="word-entries-modal-title">Entries</h2>
+        <button type="button" class="modal-close" id="word-entries-modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="word-entries-modal-body">
+        <div class="explorer-loading word-entries-loading" id="word-entries-loading" hidden>
+          <div class="spinner"></div>
+          <span>Loading entries…</span>
+        </div>
+        <div class="explorer-empty word-entries-empty" id="word-entries-empty" hidden>
+          <span class="material-symbols-outlined empty-icon">inbox</span>
+          <p>No entries contain this word.</p>
+        </div>
+        <div class="entries-list word-entries-list" id="word-entries-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/json-viewer.js" defer></script>
+  <script src="/static/explorer-entries.js" defer></script>
+  <script src="/static/word-accuracy-analyzer.js" defer></script>
+  <script src="/static/analyze.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  
+  "title": "chiara-speech2text_schema-inputs",
+  
+  "version": "1.0.0_20260531",
+  
+  "description": "Schema for inputs inside inputs.json. 'Inputs' are words and phrases for which the user with impaired speech will generate audios",
+  
+  "type": "object",
+  
+  "required": [
+    "inputs_id",
+    "inputs_emoji",
+    "inputs"
+  ],
+  
+  "properties": {
+    "inputs_id": {
+      "type": "string",
+      "description": "Unique identifier for the inputs set (e.g. title). It can be a UUID or any unique string"
+    },
+    "inputs_emoji": {
+      "type": "string",
+      "description": "Emoji representing the inputs set. It can be used in the frontend to visually differentiate sets of inputs"
+    },
+    "inputs": {
+      "type": "array",
+      "description": "List of inputs. Each input is a word or phrase for which the user will generate audios",
+      "items": {
+        "type": "object",
+        "required": ["input"],
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "The word or phrase for which the user will generate audios"
+          }
+        }
+      }
+    }
+  },
+  
+  "additionalProperties": false
+}

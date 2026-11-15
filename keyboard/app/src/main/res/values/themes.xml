@@ -1,0 +1,113 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.WhisperToInput" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="RegularImage">
+        <item name="tint">@color/playful_blue</item>
+    </style>
+
+    <style name="RegularText">
+        <item name="android:textColor">@color/playful_white</item>
+    </style>
+
+    <style name="Background">
+        <item name="android:background">@color/dark_blue</item>
+    </style>
+
+    <style name="TopBar">
+        <item name="android:background">@color/playful_yellow</item>
+    </style>
+
+    <style name="SmallCornerButton" parent="Widget.AppCompat.Button.Small">
+        <item name="android:background">@drawable/button_feedback</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:height">32dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <style name="SmallCornerImageButton">
+        <item name="android:background">@drawable/button_feedback</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="tint">@color/playful_white</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:height">32dp</item>
+    </style>
+
+    <style name="EmojiItem">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">45sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- keyboard letters -->
+    <style name="PopupKeyItem">
+        <item name="android:layout_width">55dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">45sp</item>
+        <item name="android:textColor">@color/playful_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Settings Page Styles -->
+    <style name="SettingsLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/playful_white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="SettingsDescription">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/playful_blue</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+    <style name="SettingsField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textColor">@color/playful_white</item>
+        <item name="android:inputType">textMultiLine</item>
+    </style>
+    <style name="SettingsSpinner">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+    <style name="SettingsSectionHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/playful_yellow</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="SettingsCheckbox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/playful_white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.WhisperToInput" parent="Base.Theme.WhisperToInput" />
+</resources>

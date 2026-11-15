@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  
+  "title": "chiara-speech2text_schema-timeline",
+  
+  "version": "1.0.1_20260902",
+  
+  "description": "Schema to keep track of timeline events, to implement 'timeline.json' files",
+  
+  "type": "object",
+  
+  "required": [
+    "date",
+    "name",
+    "type"
+  ],
+  
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the event (ISO 8601, YYYY.MM.DD)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the event, customizable"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["data", "event"],
+      "description": "Tracks whether the event represents a data-folder (e.g. recorded through Chiara's interaction with keyboard) or an event (e.g. release of a new fine-tuned model)"
+    }
+  },
+  
+  "additionalProperties": false
+}
