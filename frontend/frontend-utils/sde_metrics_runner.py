@@ -41,7 +41,7 @@ def main() -> int:
         "--script",
         default=os.environ.get(
             "SPEECH_DATA_EXPLORER_SCRIPT",
-            "/home/lucar/Development/nvidia-nemo/tools/speech_data_explorer/data_explorer.py",
+            "/path/to/nvidia-nemo/tools/speech_data_explorer/data_explorer.py",
         ),
         help="path to data_explorer.py",
     )

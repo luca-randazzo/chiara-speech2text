@@ -106,6 +106,6 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         json_file_path = sys.argv[1]
     else:
-        json_file_path = '/home/luca/Development/chiara-speech2text/model-server/assets/trainer_state.json'
+        json_file_path = '/path/to/chiara-speech2text/model-server/assets/trainer_state.json'
     
     plot_training_metrics(json_file_path)

@@ -6,7 +6,7 @@
 # See 'docs/1-setup.md' for more details on how to prepare models for this server, and how to launch the server.
 
 # To test transcription + LLM locally:
-# - Run Docker image which serves the Ollama LLM model, e.g.: /home/luca/Development/chiara-speech2text/models-mixer/launch-open-webui.sh
+# - Run Docker image which serves the Ollama LLM model, e.g.: /path/to/chiara-speech2text/models-mixer/launch-open-webui.sh
 # - Run this file
 # -----------------------------
 
@@ -18,9 +18,9 @@
 # NOTE: models must be in the correct format for the backend (CT2 or Transformers).
 # The code will automatically detect the format based on the presence of model.bin and config.json files.
 # check 'docs/1-setup.md' for more details on how to prepare the models for this server.
-#path_whisper_vanilla    = "/home/luca/Development/chiara-speech2text_models/whisper-large-v3"
-path_whisper_finetuned2 = "/home/luca/Development/chiara-speech2text_models/chiara_whisper_20261026"        #-ct2
-path_whisper_finetuned1 = "/home/luca/Development/chiara-speech2text_models/chiara_whisper_20261112_kto"    #-ct2
+#path_whisper_vanilla    = "/path/to/chiara-speech2text_models/whisper-large-v3"
+path_whisper_finetuned2 = "/path/to/chiara-speech2text_models/chiara_whisper_20261026"        #-ct2
+path_whisper_finetuned1 = "/path/to/chiara-speech2text_models/chiara_whisper_20261112_kto"    #-ct2
 
 # port
 http_port = 9100

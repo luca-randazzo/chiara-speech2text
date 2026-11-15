@@ -6,8 +6,8 @@ import org.junit.Test
 class WhisperTranscriberTest {
     @Test
     fun normalizeEndpoint_addsSchemeAndTrimsWhitespace() {
-        val value = " 100.83.218.66:8000/transcribe \n"
-        assertEquals("http://100.83.218.66:8000/transcribe", WhisperTranscriber.normalizeEndpoint(value))
+        val value = " 192.0.2.10:8000/transcribe \n"
+        assertEquals("http://192.0.2.10:8000/transcribe", WhisperTranscriber.normalizeEndpoint(value))
     }
 
     @Test

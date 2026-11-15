@@ -160,21 +160,20 @@
     <string name="settings_asr_primary_model">ASR primary endpoint</string>
     <string name="settings_asr_primary_model_desc">The endpoint URL for the primary endpoint ASR model service.</string>
     <string name="settings_asr_primary_model_hint">http://&lt;host&gt;:&lt;port&gt;/transcribe</string>
-    <string name="settings_option_asr_primary_model_default">http://spark.tail2ef201.ts.net:8000/transcribe</string>
-    <string name="settings_option_primary_endpoint">http://spark.tail2ef201.ts.net:8000/transcribe</string>
-    <!-- <string name="settings_option_primary_endpoint">https://chiara-speech2text-server-915226339220.europe-west8.run.app/transcribe</string> -->
+    <string name="settings_option_asr_primary_model_default">http://&lt;host&gt;:&lt;port&gt;/transcribe</string>
+    <string name="settings_option_primary_endpoint">http://&lt;host&gt;:&lt;port&gt;/transcribe</string>
 
     <!--
     <string name="settings_asr_canary_model">ASR canary-model</string>
     <string name="settings_asr_canary_model_desc">The endpoint URL for the Canary ASR model service.</string>
-    <string name="settings_asr_canary_model_hint">http://100.83.218.66:8000/transcribe-canary</string>
-    <string name="settings_option_asr_canary_model_default">http://100.83.218.66:8000/transcribe-canary</string>
+    <string name="settings_asr_canary_model_hint">http://&lt;host&gt;:&lt;port&gt;/transcribe-canary</string>
+    <string name="settings_option_asr_canary_model_default">http://&lt;host&gt;:&lt;port&gt;/transcribe-canary</string>
     -->
 
     <string name="settings_llm_model">LLM-model</string>
     <string name="settings_llm_model_desc">The endpoint URL for the Language Model service</string>
-    <string name="settings_llm_model_hint">http://spark.tail2ef201.ts.net:8000/llm</string>
-    <string name="settings_option_llm_model_default">http://spark.tail2ef201.ts.net:8000/llm</string>
+    <string name="settings_llm_model_hint">http://&lt;host&gt;:&lt;port&gt;/llm</string>
+    <string name="settings_option_llm_model_default">http://&lt;host&gt;:&lt;port&gt;/llm</string>
 
     <string name="settings_backup_model">ASR secondary endpoint</string>
     <string name="settings_backup_model_desc">The backup endpoint URL for transcription when the primary model is unavailable.</string>

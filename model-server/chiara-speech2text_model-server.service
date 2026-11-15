@@ -2,16 +2,19 @@
 Description=Chiara Speech2Text Model Server
 After=network.target
 
+# Template: replace <user> with the account that should run the service, and
+# /path/to/chiara-speech2text with the directory the project is checked out into.
+
 [Service]
 Type=simple
-User=luca
-Group=luca
+User=<user>
+Group=<user>
 
 # Set the working directory to where the script is located
-WorkingDirectory=/home/luca/Development/chiara-speech2text_private-v3/model-server
+WorkingDirectory=/path/to/chiara-speech2text/model-server
 
 # Use the Python executable from your virtual environment to run the script
-ExecStart=/home/luca/Development/chiara-speech2text_private-v3/.stt/bin/python /home/luca/Development/chiara-speech2text_private-v3/model-server/model-server.py --env-file /home/luca/Development/chiara-speech2text_envs/.env
+ExecStart=/path/to/chiara-speech2text/.stt/bin/python /path/to/chiara-speech2text/model-server/model-server.py --env-file /path/to/chiara-speech2text_envs/.env
 
 # Restart the service automatically if it crashes
 Restart=always

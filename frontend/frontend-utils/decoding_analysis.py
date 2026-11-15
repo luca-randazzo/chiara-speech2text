@@ -20,7 +20,7 @@ import editdistance
 import jiwer
 
 DEFAULT_SPEECH_DATA_EXPLORER = (
-    "/home/lucar/Development/nvidia-nemo/tools/speech_data_explorer/data_explorer.py"
+    "/path/to/nvidia-nemo/tools/speech_data_explorer/data_explorer.py"
 )
 
 

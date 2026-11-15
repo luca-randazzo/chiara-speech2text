@@ -2,7 +2,7 @@
 
 ## 1.1. Create variable for project home-path
 ```bash
-export CHIARA_STT=$HOME/Development/chiara-speech2text_private-v3
+export CHIARA_STT=$HOME/Development/chiara-speech2text
 ```
 
 ## 1.2. Install required system packages
@@ -68,7 +68,7 @@ python -m pip install --upgrade pip setuptools wheel
 python -m pip install -v .
 
 # install system-wide
-echo '/home/luca/Development/CTranslate2/lib' | sudo tee /etc/ld.so.conf.d/ctranslate2.conf
+echo "$HOME/Development/CTranslate2/lib" | sudo tee /etc/ld.so.conf.d/ctranslate2.conf
 sudo ldconfig
 ```
 
@@ -210,10 +210,10 @@ python ${CHIARA_STT}/model-server/model-server-multi.py
 
 ```bash
 # get simple response
-curl -F wav=@$HOME/Development/chiara-speech2text_private-v3/assets/audios/1-chiara/chiara-4.wav "http://127.0.0.1:8000/transcribe?upload_to_firebase_server=false"
+curl -F wav=@$HOME/Development/chiara-speech2text/assets/audios/sample.wav "http://127.0.0.1:8000/transcribe?upload_to_firebase_server=false"
 
 # get json response
-curl -F wav=@$HOME/Development/chiara-speech2text_private-v3/assets/audio_chiara-3.wav "http://127.0.0.1:8000/transcribe?upload_to_firebase_server=false&json_response=true"
+curl -F wav=@$HOME/Development/chiara-speech2text/assets/sample.wav "http://127.0.0.1:8000/transcribe?upload_to_firebase_server=false&json_response=true"
 
 # validate transcript
 curl -X POST -H "Content-Type: application/json" -H "X-Device-Id: dev" \
@@ -235,7 +235,7 @@ curl -X POST "127.0.0.1:8000/llm" \
 
 - Test `model-server-multi`
 ```bash
-curl -F wav=@/home/luca/Development/chiara-speech2text_private-v3/assets/audios/1-chiara/chiara-4.wav "127.0.0.1:9100/transcribe_all"
+curl -F wav=@$HOME/Development/chiara-speech2text/assets/audios/sample.wav "127.0.0.1:9100/transcribe_all"
 ```
 
 # 3. Deploy
@@ -246,7 +246,7 @@ For local deployment, the machine can be added to a tailscale network, to be acc
 ## Local - 'frontend' service
 ### Install
 The existing service file `frontend/chiara-speech2text_frontend.service`
-is configured to run a system service as your user (lucar),that starts on boot and restarts automatically on failure
+is configured to run a system service as your user, that starts on boot and restarts automatically on failure
 
 ```bash
 # Remove existing service file if exists
@@ -294,7 +294,7 @@ sudo systemctl stop chiara-speech2text_frontend.service
 ## Local - 'model-server' service
 ### Install
 The existing service file `model-server/chiara-speech2text_model-server.service`
-is configured to run a system service as your user (lucar),that starts on boot and restarts automatically on failure
+is configured to run a system service as your user, that starts on boot and restarts automatically on failure
 
 ```bash
 # Remove existing service file if exists
@@ -303,7 +303,7 @@ sudo rm /etc/systemd/system/chiara-speech2text_model-server.service
 
 ```bash
 # Link service file to systemd's directory (requires sudo)
-sudo ln -s $HOME/Development/chiara-speech2text_private-v3/model-server/chiara-speech2text_model-server.service /etc/systemd/system/chiara-speech2text_model-server.service
+sudo ln -s $HOME/Development/chiara-speech2text/model-server/chiara-speech2text_model-server.service /etc/systemd/system/chiara-speech2text_model-server.service
 
 # Reload systemd to recognize new service
 sudo systemctl daemon-reload
@@ -405,6 +405,6 @@ python3 $HOME/Development/nvidia-nemo/tools/speech_data_explorer/data_explorer.p
 ## Evaluate models with custom analysis tool
 ```bash
 source .stt/bin/activate
-python3 $HOME/Development/chiara-speech2text_private-v3/models-evaluator/analysis-tool/launch.py \
+python3 $HOME/Development/chiara-speech2text/models-evaluator/analysis-tool/launch.py \
   $HOME/Development/chiara-speech2text_results/results_20260701-chiara_whisper-large-v3-turbo_20260630/20260701_words.csv
 ```
