@@ -1,8 +1,7 @@
 # 1. Introduction
 `chiara-speech2text` is a software system for Automatic Speech Recognition (ASR) in users with atypical speech.
-The [project page](https://luca-randazzo.github.io/chiara-speech2text.github.io/) introduces the project and shows demo videos / screenshots.
-
-This document provides a technical description of the system and this repo. 
+- The [project page](https://luca-randazzo.github.io/chiara-speech2text.github.io/) introduces the project (and provides demo videos / screenshots)
+- This document provides a technical description of the system and this repo
 
 # 2. System description
 
